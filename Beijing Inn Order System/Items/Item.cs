@@ -6,27 +6,31 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items
 {
-    class Item
+    public class Item
     {
-        private String name;
+        private static List<Item> totalItems = new List<Item>();
+
+        private String englishName;
+        private String chineseName;
         private float price;
 
-        public Item(String name, float price)
+        public Item(String englishName, String chineseName, float price)
         {
-            this.name = name;
+            this.englishName = englishName;
+            this.chineseName = chineseName;
             this.price = price;
         }
 
-        public String Name
+        public String EnglishName
         {
             get
             {
-                return name;
+                return englishName;
             }
 
             set
             {
-                name = value;
+                englishName = value;
             }
         }
 
@@ -40,6 +44,19 @@ namespace Beijing_Inn_Order_System.Items
             set
             {
                 price = value;
+            }
+        }
+
+        public static List<Item> TotalItems
+        {
+            get
+            {
+                return totalItems;
+            }
+
+            set
+            {
+                totalItems = value;
             }
         }
     }
