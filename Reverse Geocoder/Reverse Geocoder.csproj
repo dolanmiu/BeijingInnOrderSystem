@@ -40,6 +40,12 @@
     <Reference Include="GeoCoding.Google">
       <HintPath>.\GeoCoding.Google.dll</HintPath>
     </Reference>
+    <Reference Include="GeoCoding.Microsoft">
+      <HintPath>.\GeoCoding.Microsoft.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoCoding.Yahoo">
+      <HintPath>.\GeoCoding.Yahoo.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI">
       <HintPath>..\Beijing Inn Order System\NPOI.dll</HintPath>
     </Reference>

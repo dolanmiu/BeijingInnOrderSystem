@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GeoCoding;
 using GeoCoding.Google;
+using GeoCoding.Yahoo;
+using GeoCoding.Microsoft;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 using System.IO;
@@ -79,30 +81,47 @@ namespace Reverse_Geocoder
             ISheet medwayPostcodeSheet = medwayPostcodes.GetSheet("Sheet1");
             ISheet outputSheet = outputXLSX.GetSheet("Sheet1");
             //for (int row = 1; row <= medwayPostcodeSheet.LastRowNum; row++)
-            for (int row = 202; row <= 3000; row++)
+            for (int row = 2440; row <= 3000; row++)
             {
+                int count = 0;
                 if (medwayPostcodeSheet.GetRow(row) != null) //null is when the row only contains empty cells 
                 {
                     String postCode = medwayPostcodeSheet.GetRow(row).GetCell(0).StringCellValue;
                     double longPos = medwayPostcodeSheet.GetRow(row).GetCell(13).NumericCellValue;
                     double latPos = medwayPostcodeSheet.GetRow(row).GetCell(14).NumericCellValue;
-                    System.Threading.Thread.Sleep(1000);
-                    AddStreet(outputSheet, row, postCode, latPos, longPos);
+                    //string blah = outputSheet.GetRow(row).GetCell(0).StringCellValue;
+                    if (outputSheet.GetRow(row) == null)
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                        AddStreet(outputSheet, row, postCode, latPos, longPos);
+                        count++;
+                    }
                 }
-                if (row % 100 == 0)
+                if (count % 10 == 0)
                 {
+                    //System.Threading.Thread.Sleep(4000);
                     WriteXLSX(outputXLSX, "AddressList.xlsx");
                 }
             }
+            System.Threading.Thread.Sleep(4000);
             WriteXLSX(outputXLSX, "AddressList.xlsx");
         }
 
         public void AddStreet(ISheet sheet, int row, string postCode, double latPos, double longPos)
         {
-            IGeoCoder geoCoder = new GoogleGeoCoder();
+            IGeoCoder geoCoder = new BingMapsGeoCoder("AoOO7N-PyP6n3dBlaVYM8_tKhG2Hslm9yL088fTftMQkV9H1LmQnMysWTedYqiSK");
+            //IGeoCoder geoCoder = new GoogleGeoCoder("AIzaSyD4qJe0Memxi9X6YjK5kHutrfiAtSm41rM");
             Location latLang = geoCoder.GeoCode(postCode).ToArray()[0].Coordinates;
             Address[] addresses = geoCoder.ReverseGeocode(latLang.Latitude, latLang.Longitude).ToArray();
-            string streetNameNumber = addresses[0].FormattedAddress.Split(',')[0];
+            string streetNameNumber;
+            try
+            {
+                streetNameNumber = addresses[0].FormattedAddress.Split(',')[0];
+            }
+            catch (Exception)
+            {
+                return;
+            }
             bool hasHouseNumber = System.Text.RegularExpressions.Regex.IsMatch(streetNameNumber, @"\d");
             int count = 0;
             if (hasHouseNumber)
@@ -155,9 +174,17 @@ namespace Reverse_Geocoder
         public void WriteXLSX(XSSFWorkbook workbook, string filename)
         {
             string fileLocation = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + filename;
-            FileStream file = new FileStream(@fileLocation, FileMode.Create);
-            workbook.Write(file);
-            file.Close();
+            FileStream file;
+            try
+            {
+                file = new FileStream(@fileLocation, FileMode.Create);
+                workbook.Write(file);
+                file.Close();
+            }
+            catch (IOException)
+            {
+
+            }
         }
     }
 }

@@ -104,7 +104,7 @@
     </Compile>
     <Compile Include="Customer\Address.cs" />
     <Compile Include="Customer\Customer.cs" />
-    <Compile Include="Items\ExcelReader.cs" />
+    <Compile Include="ExcelReader\ExcelReader.cs" />
     <Compile Include="Items\ExcelReader_NPOI.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\Order.cs" />

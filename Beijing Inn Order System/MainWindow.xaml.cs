@@ -34,6 +34,12 @@ namespace Beijing_Inn_Order_System
         {
             TotalItems.ItemsSource = Item.TotalItems;
             BasketList.ItemsSource = itemBasket;
+            LoadAddresses();
+        }
+
+        private void LoadAddresses()
+        {
+
         }
 
         private void ListBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
