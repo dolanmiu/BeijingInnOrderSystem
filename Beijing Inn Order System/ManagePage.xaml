@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Beijing_Inn_Order_System.ManagePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Loaded="OnLoad"
+             d:DesignHeight="502" d:DesignWidth="645">
+    <Grid>
+        <TabControl>
+            <TabItem Header="ITEM SALES">
+                <Grid>
+                    <ListView x:Name="ItemListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="English" DisplayMemberBinding="{Binding Item.EnglishName}" Width="150"/>
+                                <GridViewColumn Header="Chinese" DisplayMemberBinding="{Binding Item.ChineseName}" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Count}" Width="150">
+                                    <GridViewColumnHeader x:Name="TotalBoughtHeader" Click="SortClickItems" Tag="Count" Content="Total Bought" />
+                                </GridViewColumn>
+                                <GridViewColumn Header="Special Reqs">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="AddSpecialButton" Content="Remove" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="CUSTOMERS">
+                <Grid>
+                    <ListView x:Name="CustomerListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="House Number" DisplayMemberBinding="{Binding Number}" Width="90"/>
+                                <GridViewColumn Header="Road Name" DisplayMemberBinding="{Binding Address.Road}" Width="350"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Count}" Width="150">
+                                    <GridViewColumnHeader x:Name="TotalCustomersHeader" Click="SortClickCustomers" Tag="Count" Content="Total Bought" />
+                                </GridViewColumn>
+                                <GridViewColumn Header="More Info">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="AddSpecialButton" Content="More" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

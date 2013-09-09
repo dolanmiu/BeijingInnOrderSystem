@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Elysium;
 using Beijing_Inn_Order_System.Items;
+using Beijing_Inn_Order_System.Customer;
 
 namespace Beijing_Inn_Order_System
 {
@@ -17,9 +18,9 @@ namespace Beijing_Inn_Order_System
     {
         void StartupHandler(object sender, System.Windows.StartupEventArgs e)
         {
-            //Elysium.Manager.Apply(this, Elysium.Theme.Dark, Elysium.AccentBrushes.Blue, Elysium.AccentBrushes.Sky);
-            //ExcelReader.ReadXLS("test.xlsx");
-            ExcelReader_NPOI.ReadXLSX("text.xls");
+            Item.LoadItems();
+            Address.LoadAllAddresses();
+            //Address.LoadAllPostCodes();
         }
     }
 }

@@ -32,34 +32,124 @@ namespace Beijing_Inn_Order_System.Items
             Console.Read();
         }
 
-        public static void ReadXLSX(String filename)
+        public static string[,] ReadAllXLSX(string filename, int[] cellColumnsString, int[] cellColumnNumber, bool local)
         {
-            XSSFWorkbook hssfwb;
-            using (FileStream file = new FileStream(@"c:\test.xlsx", FileMode.Open, FileAccess.Read))
+            if (cellColumnNumber == null)
             {
-                hssfwb = new XSSFWorkbook(file);
+                cellColumnNumber = new int[0];
             }
 
+            if (cellColumnsString == null)
+            {
+                cellColumnsString = new int[0];
+            }
+
+            XSSFWorkbook hssfwb = OpenXLSX(filename, local);
             ISheet sheet = hssfwb.GetSheet("Sheet1");
+
+            string[,] output = new string[sheet.LastRowNum + 1, cellColumnsString.Length + cellColumnNumber.Length];
+
             for (int row = 0; row <= sheet.LastRowNum; row++)
             {
                 if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
                 {
-                    //MessageBox.Show(string.Format("Row {0} = {1}", row, sheet.GetRow(row).GetCell(0).StringCellValue));
-                    String englishName = sheet.GetRow(row).GetCell(0).StringCellValue;
-                    String chineseName = sheet.GetRow(row).GetCell(1).StringCellValue;
-                    float price = (float)sheet.GetRow(row).GetCell(2).NumericCellValue;
-                    CreateItem(englishName, chineseName, price);
+                    for (int i = 0; i < cellColumnsString.Length; i++)
+                    {
+                        output[row, i] = sheet.GetRow(row).GetCell(cellColumnsString[i]).StringCellValue;
+                    }
+
+                    for (int i = 0; i < cellColumnNumber.Length; i++)
+                    {
+                        string number = sheet.GetRow(row).GetCell(cellColumnNumber[i]).NumericCellValue.ToString();
+                        output[row, cellColumnsString.Length + i] = number;
+                    }
                 }
+            }
+            return output;
+        }
+
+        public static string ReadSingleXLSXFromWorkBook(XSSFWorkbook hssfwb, int row, int column, bool isNumeric)
+        {
+            ISheet sheet = hssfwb.GetSheet("Sheet1");
+            if (isNumeric)
+            {
+                return sheet.GetRow(row).GetCell(column).NumericCellValue.ToString();
+            }
+            else
+            {
+                return sheet.GetRow(row).GetCell(column).StringCellValue;
             }
         }
 
-        private static void CreateItem(String englishName, String chineseName, float price)
+        public static string[] ReadSingleXlSX(string filename, int row, int[] cellColumns)
         {
-            Item newItem = new Item(englishName, chineseName, price);
-            Item.TotalItems.Add(newItem);
+            XSSFWorkbook hssfwb = OpenXLSX(filename, true);
+            ISheet sheet = hssfwb.GetSheet("Sheet1");
+
+            string[] output = new string[cellColumns.Length];
+
+            if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
+            {
+                for (int i = 0; i < cellColumns.Length; i++)
+                {
+                    output[i] = sheet.GetRow(row).GetCell(cellColumns[i]).StringCellValue;
+                }
+            }
+
+            return output;
         }
 
+        public static void WriteSingleXLXS(XSSFWorkbook hssfwb, int row, int column, string data)
+        {
+            ISheet sheet = hssfwb.GetSheet("Sheet1");
+            sheet.GetRow(row).CreateCell(column).SetCellValue(data);
+        }
+
+        public static XSSFWorkbook OpenXLSX(string filename, bool local)
+        {
+            XSSFWorkbook hssfwb;
+            string fileDir;
+            if (local == true)
+            {
+                fileDir = Directory.GetCurrentDirectory();
+            }
+            else
+            {
+                string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                fileDir = Path.Combine(folder, "Beijing Inn");
+                if (!Directory.Exists(fileDir))
+                    Directory.CreateDirectory(fileDir);
+            }
+            string fileLocation = fileDir + "\\" + filename;
+            if (!File.Exists(fileLocation))
+            {
+                XSSFWorkbook newFile = new XSSFWorkbook();
+                newFile.CreateSheet("Sheet1");
+                WriteXLSX(newFile, filename);
+            }
+            using (FileStream file = new FileStream(@fileLocation, FileMode.Open, FileAccess.Read))
+            {
+                hssfwb = new XSSFWorkbook(file);
+            }
+            return hssfwb;
+        }
+
+        public static void WriteXLSX(XSSFWorkbook workbook, string filename)
+        {
+            string fileDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Beijing Inn");
+            string fileLocation = fileDir + "\\" + filename;
+            FileStream file;
+            try
+            {
+                file = new FileStream(@fileLocation, FileMode.Create);
+                workbook.Write(file);
+                file.Close();
+            }
+            catch (IOException)
+            {
+
+            }
+        }
 
         private static HSSFWorkbook OpenSampleWorkbook(String filename)
         {
@@ -73,7 +163,7 @@ namespace Beijing_Inn_Order_System.Items
             }
         }
 
-        public static Stream OpenSampleFileStream(String sampleFileName)
+        private static Stream OpenSampleFileStream(String sampleFileName)
         {
             Initialise();
 
