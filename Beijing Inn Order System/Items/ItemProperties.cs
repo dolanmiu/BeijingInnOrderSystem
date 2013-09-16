@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Beijing_Inn_Order_System.Items.SpecialDecoration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Beijing_Inn_Order_System.Items
     [Serializable]
     public class ItemProperties
     {
-        private bool noPeas;
+        /*private bool noPeas;
         private bool noOnions;
         private bool noChilli;
         private bool noPork;
@@ -24,7 +25,8 @@ namespace Beijing_Inn_Order_System.Items
         private bool sauceSeperate;
         private bool noMSG;
         private bool littleSalt;
-        private bool notTooSpicy;
+        private bool notTooSpicy;*/
+        SpecialComponent special;
 
 
         public ItemProperties()
@@ -33,6 +35,18 @@ namespace Beijing_Inn_Order_System.Items
         }
 
         #region Properties
+        public SpecialComponent Special
+        {
+            get
+            {
+                return special;
+            }
+            set
+            {
+                special = value;
+            }
+        }
+        /*
         public bool NoPeas
         {
             get
@@ -223,7 +237,8 @@ namespace Beijing_Inn_Order_System.Items
             {
                 notTooSpicy = value;
             }
-        }
+        }*/
         #endregion
+         
     }
 }

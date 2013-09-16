@@ -20,6 +20,7 @@ namespace Beijing_Inn_Order_System
         {
             Item.LoadItems();
             Address.LoadAllAddresses();
+            Address.LoadForeignAddresses();
             //Address.LoadAllPostCodes();
         }
     }

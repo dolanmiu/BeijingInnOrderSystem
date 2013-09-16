@@ -44,7 +44,7 @@ namespace Beijing_Inn_Order_System.Items
             itemProperties = new ItemProperties();
         }
 
-        public void Reset()
+        public void _Reset() //Depreciated
         {
             if (isSizeDish)
             {
@@ -139,9 +139,6 @@ namespace Beijing_Inn_Order_System.Items
                     tempBoughtItems.Rows.Add(item, totalBought);
                 }
             }
-            //DataView dv = tempBoughtItems.DefaultView;
-            //dv.Sort = "occr desc";
-            //totalBoughtItems = dv.ToTable();
             totalBoughtItems = tempBoughtItems;
         }
 
@@ -232,6 +229,18 @@ namespace Beijing_Inn_Order_System.Items
             }
         }
 
+        public bool IsEqualTo(Item item)
+        {
+            if (item.EnglishName == englishName && item.ChineseName == chineseName && item.IsLarge == isLarge)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #region Properties
         public String EnglishName
         {
@@ -300,25 +309,13 @@ namespace Beijing_Inn_Order_System.Items
                 return itemProperties;
             }
         }
-
+        
         public string ConcatProperties
         {
             get
             {
-                string result = "";
-                if (itemProperties.NoChilli == true)
-                {
-                    result += "No Chilli, ";
-                }
-                if (itemProperties.NoOnions == true)
-                {
-                    result += "No Onions, ";
-                }
-                if (itemProperties.NoPeas == true)
-                {
-                    result += "No Peas, ";
-                }
-                return result;
+                if (itemProperties.Special == null) return "";
+                return itemProperties.Special.GetEnglishValue();
             }
         }
 

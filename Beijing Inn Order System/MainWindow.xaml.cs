@@ -17,7 +17,7 @@ namespace Beijing_Inn_Order_System
 
         void OnLoad(object sender, RoutedEventArgs e)
         {
-            PrintReceipt.LoadPrinter();
+            ReceiptPrinter.LoadPrinter();
             this.Content = orderPage;
         }
 
@@ -36,7 +36,7 @@ namespace Beijing_Inn_Order_System
 
         private void MainScreen_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            PrintReceipt.UnloadPrinter();
+            ReceiptPrinter.UnloadPrinter();
         }
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -49,6 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="Elysium, Version=2.0.1042.1, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Elysium.dll</HintPath>
@@ -62,6 +63,10 @@
     <Reference Include="Microsoft.Expression.Drawing">
       <HintPath>.\Microsoft.Expression.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.PointOfService, Version=1.12.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Point Of Service\SDK\Microsoft.PointOfService.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI">
       <HintPath>.\NPOI.dll</HintPath>
     </Reference>
@@ -74,9 +79,19 @@
     <Reference Include="NPOI.OpenXmlFormats">
       <HintPath>.\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -85,15 +100,59 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfKb, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\WpfKb.dll</HintPath>
+    </Reference>
+    <Reference Include="WpfUIPickerLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\WpfUIPickerLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EvalCSCode.cs" />
+    <Compile Include="Items\SpecialButton.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialBase.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialComponent.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialDecorator.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialExtraHot.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialLittleOil.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialLittleSalt.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoBeansprouts.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoChilli.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoMSG.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoOnions.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoPeanuts.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoPork.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoShrimps.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNotTooHot.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoVegetables.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoWaterChestnuts.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialSauceSeperate.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialSpicy.cs" />
+    <Compile Include="PlaceholderTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Items\SpecialDecoration\SpecialNoPeas.cs" />
+    <Compile Include="Screens\NewAddressControl.xaml.cs">
+      <DependentUpon>NewAddressControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\SpecialReqs.xaml.cs">
+      <DependentUpon>SpecialReqs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TextBoxInputMaskBehavior.cs" />
+    <Compile Include="Screens\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,19 +161,61 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Items\Basket.cs" />
     <Compile Include="Customer\Address.cs" />
     <Compile Include="Customer\Customer.cs" />
+    <Compile Include="DistanceCalculator.cs" />
     <Compile Include="ExcelReader\ExcelReader.cs" />
     <Compile Include="Items\ExcelReader_NPOI.cs" />
     <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\ItemProperties.cs" />
     <Compile Include="Items\Order.cs" />
-    <Compile Include="Main.cs" />
+    <Compile Include="ListViewColumnSorter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Screens\ManagePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\NewAddressControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\OrderPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\SpecialReqs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\UserControl1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Screens\ManagePage.xaml.cs">
+      <DependentUpon>ManagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\OrderPage.xaml.cs">
+      <DependentUpon>OrderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages.cs" />
+    <Compile Include="Printing\Print.cs" />
+    <Compile Include="Printing\ReceiptPrinter.cs" />
+    <Compile Include="Printing\TextBitmap.cs" />
+    <Compile Include="Printing\TextDecoration\TextBase.cs" />
+    <Compile Include="Printing\TextDecoration\TextBold.cs" />
+    <Compile Include="Printing\TextDecoration\TextCentreAlign.cs" />
+    <Compile Include="Printing\TextDecoration\TextComponent.cs" />
+    <Compile Include="Printing\TextDecoration\TextDecorator.cs" />
+    <Compile Include="Printing\TextDecoration\TextItalic.cs" />
+    <Compile Include="Printing\TextDecoration\TextRightAlign.cs" />
+    <Compile Include="Printing\TextDecoration\TextShading.cs" />
+    <Compile Include="Printing\TextDecoration\TextUnderline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -132,6 +233,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="AddressList.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="FoodItems.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -161,6 +268,13 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\logo.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\logo.bmp" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

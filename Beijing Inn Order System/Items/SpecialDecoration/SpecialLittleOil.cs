@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Beijing_Inn_Order_System.Items.SpecialDecoration
+{
+    class SpecialLittleOil : SpecialDecorator
+    {
+        public SpecialLittleOil(SpecialComponent specialComponent)
+            : base(specialComponent)
+        {
+            this.englishDecoration = "Little Oil";
+            this.chineseDecoration = "少油";
+        }
+    }
+}

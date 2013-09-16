@@ -1,6 +1,7 @@
 ﻿using Beijing_Inn_Order_System.Customer;
 using Beijing_Inn_Order_System.Items;
 using Beijing_Inn_Order_System.Printing;
+using Beijing_Inn_Order_System.Screens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,9 @@ namespace Beijing_Inn_Order_System
     public partial class OrderPage : UserControl
     {
         ListBox dragSource = null;
-        //List<Item> itemBasket;
         Basket itemBasket;
-        Address currentAddresses;
+        List<Address> currentAddresses = new List<Address>();
+        Address currentAddress;
 
         public OrderPage()
         {
@@ -34,23 +35,18 @@ namespace Beijing_Inn_Order_System
             TotalItems.ItemsSource = Item.TotalItems;
             BasketList.ItemsSource = itemBasket.Items;
             ItemBasketListView.ItemsSource = itemBasket.Items;
-        }
 
-        private string calculateBasketPrice()
-        {
-            float totalPrice = 0;
-            for (int i = 0; i < itemBasket.Items.Count; i++)
-            {
-                totalPrice += itemBasket.Items[i].Price;
-            }
-            return totalPrice.ToString("0.00");
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(UpdatePrinterStatusTick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
+            dispatcherTimer.Start();
         }
-
+        
         private void RefreshControls()
         {
             ItemBasketListView.Items.Refresh();
             BasketList.Items.Refresh();
-            PriceTextBlock.Text = "£" + calculateBasketPrice();
+            PriceTextBlock.Text = "£" + itemBasket.CalculatePrice().ToString("0.00");
         }
 
         public List<TumblerData> ApparelTumblers
@@ -66,26 +62,30 @@ namespace Beijing_Inn_Order_System
 
         private void SetAddressFields()
         {
+            if (currentAddress == null) return;
             if (HouseNumberTextBox.Text == "")
             {
-                RoadTextBlock.Text = currentAddresses.Road;
-                RoadTextBlock_Print.Text = currentAddresses.Road;
+                RoadTextBlock_Print.Text = currentAddress.Road;
+                RoadTextBlock.Text = currentAddress.Road;
             }
             else
             {
-                RoadTextBlock.Text = HouseNumberTextBox.Text + " " + currentAddresses.Road;
-                RoadTextBlock_Print.Text = HouseNumberTextBox.Text + " " + currentAddresses.Road;
+                RoadTextBlock_Print.Text = HouseNumberTextBox.Text + " " + currentAddress.Road;
+                RoadTextBlock.Text = HouseNumberTextBox.Text + " " + currentAddress.Road;
             }
 
-            TownTextBlock.Text = currentAddresses.Town;
-            TownTextBlock_Print.Text = currentAddresses.Town;
-            PostCodeTextBlock.Text = currentAddresses.PostCode;
-            PostCodeTextBlock_Print.Text = currentAddresses.PostCode;
+            TownTextBlock_Print.Text = currentAddress.Town;
+            PostCodeTextBlock_Print.Text = currentAddress.PostCode;
+            TownTextBlock.Text = currentAddress.Town;
+            PostCodeTextBlock.Text = currentAddress.PostCode;
         }
 
         private void SetDistanceField()
         {
-            DistanceTextBlock.Text = DistanceCalculator.getDistanceFromLatLonInKm(DistanceCalculator.BeijingInnCoords[0], DistanceCalculator.BeijingInnCoords[1], currentAddresses.Latitude, currentAddresses.Longitude) + "Km";
+            if (currentAddress != null)
+            {
+                DistanceTextBlock.Text = "Distance: " + DistanceCalculator.getDistanceFromLatLonInKm(DistanceCalculator.BeijingInnCoords[0], DistanceCalculator.BeijingInnCoords[1], currentAddress.Latitude, currentAddress.Longitude) + "Km";
+            }
         }
 
         #region GetDataFromListBox(ListBox,Point)
@@ -133,65 +133,15 @@ namespace Beijing_Inn_Order_System
         {
             ListBox parent = (ListBox)sender;
             Item data = (Item)e.Data.GetData(typeof(Item));
-            //((IList)dragSource.ItemsSource).Remove(data);
-            Item item = Item.DeepClone<Item>(data); 
+            Item item = Item.DeepClone<Item>(data);
             itemBasket.Items.Add(item);
             RefreshControls();
-            //parent.Items.Add(data.EnglishName);
         }
-
-        private void PostCodeTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox tb = (TextBox)sender;
-            if (tb.Text.Length > 6)
-            {
-                for (int i = 0; i < Address.TotalAddresses.Count; i++)
-                {
-                    if (Address.TotalAddresses[i].PostCode != null)
-                    {
-                        if (Address.TotalAddresses[i].PostCode.Contains(tb.Text))
-                        {
-                            currentAddresses = Address.TotalAddresses[i];
-                            SetAddressFields();
-                            SetDistanceField();
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void RoadNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox tb = (TextBox)sender;
-            if (tb.Text.Length > 6)
-            {
-                for (int i = 0; i < Address.TotalAddresses.Count; i++)
-                {
-                    if (Address.TotalAddresses[i].Road != null)
-                    {
-                        string road = Address.TotalAddresses[i].Road.ToUpper();
-                        if (road.Contains(tb.Text.ToUpper()))
-                        {
-                            currentAddresses = Address.TotalAddresses[i];
-                            SetAddressFields();
-                            SetDistanceField();
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
+        
         private void ClearBasket_Click(object sender, RoutedEventArgs e)
         {
             itemBasket.Items.Clear();
             RefreshControls();
-        }
-
-        private void BasketList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Console.WriteLine("selection changed");
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -204,9 +154,9 @@ namespace Beijing_Inn_Order_System
         private void HouseNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
-            if (currentAddresses != null)
+            if (currentAddress != null)
             {
-                currentAddresses.Number = HouseNumberTextBox.Text;
+                currentAddress.Number = HouseNumberTextBox.Text;
                 SetAddressFields();
             }
         }
@@ -304,13 +254,13 @@ namespace Beijing_Inn_Order_System
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-            PrintReceipt.Print(itemBasket);
-            if (currentAddresses != null)
+            ReceiptPrinter.Print(itemBasket, currentAddress);
+            if (currentAddress != null)
             {
-                if (currentAddresses.Number != null && currentAddresses.Road != null && itemBasket != null)
+                if (currentAddress.Number != null && currentAddress.Road != null && itemBasket != null)
                 {
                     Item.AddOrderToCount(itemBasket.Items);
-                    Address.AddCustomerToCount(currentAddresses);
+                    Address.AddCustomerToCount(currentAddress);
                     //print it
                 }
             }
@@ -336,6 +286,80 @@ namespace Beijing_Inn_Order_System
                 local.IsLarge = true;
             }
             RefreshControls();
+        }
+
+        private void NewAddressButton_Click(object sender, RoutedEventArgs e)
+        {
+            Address address = new Address();
+            NewAddressControl nac = new NewAddressControl(address);
+            nac.ShowDialog();
+            if (address.PostCode == null || address.Road == null || address.Town == null) return;
+            Address.AddForeignAddress(address);
+            currentAddress = address;
+        }
+
+        private void SearchResultsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((Address)((ListBox)sender).SelectedItem == null) return;
+            currentAddress = (Address)((ListBox)sender).SelectedItem;
+            SetAddressFields();
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox t = (sender as TextBox);
+            string text = t.Text.Trim();
+            currentAddresses = Address.Search(text);
+            if (SearchResultsListBox == null) return;
+            SearchResultsListBox.ItemsSource = currentAddresses;
+            SearchResultsListBox.Items.Refresh();
+        }
+
+        
+        private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(((TextBox)sender).Text))
+            {
+                ((TextBox)sender).Text = "Search postcode or road...";
+                return;
+            }
+        }
+
+        private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (((TextBox)sender).Text == "Search postcode or road...")
+            {
+                ((TextBox)sender).Text = "";
+                return;
+            }
+
+            if (string.IsNullOrEmpty(((TextBox)sender).Text))
+            {
+                ((TextBox)sender).Text = "Search postcode or road...";
+                return;
+            }
+        }
+
+        private void SetPrinterStatusText(TextBlock tb)
+        {
+            tb.Text = "Health: " + ReceiptPrinter.Health + "\nPower: " + ReceiptPrinter.PowerState + "\nCover: ";
+            if (ReceiptPrinter.CoverOpen == true)
+            {
+                tb.Text += "Open";
+            }
+            if (ReceiptPrinter.CoverOpen == false)
+            {
+                tb.Text += "Closed";
+            }
+            if (ReceiptPrinter.CoverOpen == null)
+            {
+                tb.Text += "Not Connected";
+            }
+        }
+
+        private void UpdatePrinterStatusTick(object sender, EventArgs e)
+        {
+            SetPrinterStatusText(PrinterStatusTextBlock);
         }
     }
 }
