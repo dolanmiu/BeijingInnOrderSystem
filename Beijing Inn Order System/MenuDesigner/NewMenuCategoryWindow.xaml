@@ -1,0 +1,14 @@
+﻿<Controls:Window x:Class="Beijing_Inn_Order_System.MenuDesigner.NewMenuCategoryWindow"
+                 xmlns:Controls="clr-namespace:Elysium.Controls;assembly=Elysium"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:CustomControls="clr-namespace:Beijing_Inn_Order_System.CustomControls"
+                 Height="221" Width="300"
+                 WindowStartupLocation="CenterScreen" BorderThickness="0,10" HasDropShadow="True" WindowStyle="None">
+    <Grid>
+        <CustomControls:PromptTB x:Name="EnglishNameTextBox" Margin="10,10,10,0" TextWrapping="Wrap" FontSize="20" AllowDrop="False" CaretIndex="100" TextAlignment="Center" Height="41" VerticalAlignment="Top" PromptText="English Name..." Foreground="#FF404040" Background="White" CaretBrush="#FF363636" />
+        <CustomControls:PromptTB x:Name="ChineseNameTextBox" Margin="10,56,10,0" TextWrapping="Wrap" FontSize="20" AllowDrop="False" CaretIndex="100" TextAlignment="Center" Height="41" VerticalAlignment="Top" PromptText="(Optional) Chinese Name..." Foreground="#FF404040" Background="White" CaretBrush="#FF363636" />
+        <Button x:Name="CreateCategoryButton" Content="Accept" Margin="10,0,10,10" Height="81" VerticalAlignment="Bottom" Click="CreateCategoryButton_Click"/>
+
+    </Grid>
+</Controls:Window>

@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="Beijing_Inn_Order_System.Screens.ManagePageElements.MenuDesignerWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}" Unloaded="UserControl_Unloaded">
+    <Grid>
+        <ListBox x:Name="MenuSectionsListBox" DisplayMemberPath="EnglishChineseName" ItemsSource="{Binding MenuCategories}" HorizontalAlignment="Left" Margin="10,201,0,10" Width="320" SelectionChanged="MenuSectionsListBox_SelectionChanged" Background="#FF2B2B2B" Drop="MenuSectionsListBox_Drop" AllowDrop="True" MouseDoubleClick="MenuSectionsListBox_MouseDoubleClick" PreviewMouseMove="MenuSectionsListBox_PreviewMouseMove">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}"></Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <Grid Margin="335,0,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="Category Items" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="320" FontSize="20" Foreground="White"/>
+            <ListBox x:Name="CategoryItemsListBox" Grid.Column="0" Margin="0,43,0,0" ItemsSource="{Binding CategoryItems, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NumberedEnglishName" MouseUp="CategoryItemsListBox_MouseUp" Background="#FF2B2B2B">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}"></Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <Label Content="Total Item List" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="320" FontSize="20" Foreground="White"/>
+            <ListBox x:Name="TotalItemsListBox" Grid.Column="2" Margin="0,43,0,0" DisplayMemberPath="NumberedEnglishName" ItemsSource="{Binding TotalItems}" MouseUp="TotalItemsListBox_MouseUp" Background="#FF2B2B2B">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}"></Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Grid>
+        <Button x:Name="AddCategoryButton" Content="Add Category" HorizontalAlignment="Left" Margin="10,43,0,0" Width="157" Click="AddCategoryButton_Click" Height="81" VerticalAlignment="Top"/>
+        <Button x:Name="DeleteCategoryButton" Content="Delete Category" HorizontalAlignment="Left" Margin="172,43,0,0" Width="158" Click="DeleteCategoryButton_Click" Height="81" VerticalAlignment="Top"/>
+        <Label Content="Menu Categories" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="43" Width="320" FontSize="20" Foreground="White"/>
+        <Button x:Name="MoveCategoryUpButton" Content="Move Up" HorizontalAlignment="Left" Height="67" Margin="9,129,0,0" VerticalAlignment="Top" Width="158" Click="MoveCategoryUpButton_Click"/>
+        <Button x:Name="MoveCategoryDownButton" Content="Move Down" HorizontalAlignment="Left" Height="67" Margin="172,129,0,0" VerticalAlignment="Top" Width="158" Click="MoveCategoryDownButton_Click"/>
+    </Grid>
+</UserControl>

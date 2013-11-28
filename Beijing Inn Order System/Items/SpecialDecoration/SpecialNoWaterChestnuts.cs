@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items.SpecialDecoration
 {
+    [Serializable]
     class SpecialNoWaterChestnuts : SpecialDecorator
     {
         public SpecialNoWaterChestnuts(SpecialComponent specialComponent)
@@ -13,6 +14,7 @@ namespace Beijing_Inn_Order_System.Items.SpecialDecoration
         {
             this.englishDecoration = "No Water Chestnuts";
             this.chineseDecoration = "没有荸荠";
+            this.type = SpecialButton.SpecialType.NoWaterChestnuts;
         }
     }
 }

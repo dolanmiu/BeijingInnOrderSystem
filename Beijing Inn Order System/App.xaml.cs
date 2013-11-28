@@ -18,10 +18,8 @@ namespace Beijing_Inn_Order_System
     {
         void StartupHandler(object sender, System.Windows.StartupEventArgs e)
         {
-            Item.LoadItems();
-            Address.LoadAllAddresses();
-            Address.LoadForeignAddresses();
-            //Address.LoadAllPostCodes();
+            ItemManager.LoadItems();
+            AddressManager.LoadAllAddresses();
         }
     }
 }

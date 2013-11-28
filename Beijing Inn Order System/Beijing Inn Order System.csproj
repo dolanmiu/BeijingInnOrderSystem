@@ -9,10 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Beijing_Inn_Order_System</RootNamespace>
     <AssemblyName>Beijing Inn Order System</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -38,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,37 +49,44 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="Elysium, Version=2.0.1042.1, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
+    <Reference Include="Elysium, Version=2.0.976.3, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Elysium.dll</HintPath>
+      <HintPath>DLL\Elysium.dll</HintPath>
     </Reference>
-    <Reference Include="Elysium.Notifications">
-      <HintPath>.\Elysium.Notifications.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="InputSimulator">
+      <HintPath>DLL\InputSimulator.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Expression.Drawing">
-      <HintPath>.\Microsoft.Expression.Drawing.dll</HintPath>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Microsoft.Expression.Drawing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.PointOfService, Version=1.12.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Point Of Service\SDK\Microsoft.PointOfService.dll</HintPath>
+      <HintPath>DLL\Microsoft.PointOfService.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI">
-      <HintPath>.\NPOI.dll</HintPath>
+    <Reference Include="NPOI, Version=2.0.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\NPOI.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI.OOXML">
-      <HintPath>.\NPOI.OOXML.dll</HintPath>
+    <Reference Include="NPOI.OOXML, Version=2.0.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\NPOI.OOXML.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI.OpenXml4Net">
-      <HintPath>.\NPOI.OpenXml4Net.dll</HintPath>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.0.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\NPOI.OpenXml4Net.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI.OpenXmlFormats">
-      <HintPath>.\NPOI.OpenXmlFormats.dll</HintPath>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.0.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="ReachFramework" />
@@ -107,11 +116,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WpfKb, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\WpfKb.dll</HintPath>
-    </Reference>
-    <Reference Include="WpfUIPickerLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\WpfUIPickerLib.dll</HintPath>
+      <HintPath>DLL\WpfKb.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -119,12 +124,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="EvalCSCode.cs" />
+    <Compile Include="CustomControls\PromptTB.xaml.cs">
+      <DependentUpon>PromptTB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\AddressManager.cs" />
+    <Compile Include="Customer\OrderDetails.cs" />
+    <Compile Include="Helper Classes\ListViewSorter.cs" />
+    <Compile Include="Helper Classes\Helper.cs" />
+    <Compile Include="Items\BaseItem.cs" />
+    <Compile Include="Items\IItem.cs" />
+    <Compile Include="Items\ItemManager.cs" />
+    <Compile Include="Items\PieItem.cs" />
+    <Compile Include="Items\SizeButton.xaml.cs">
+      <DependentUpon>SizeButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Items\SizeItem.cs" />
     <Compile Include="Items\SpecialButton.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialBase.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialComponent.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialDecorator.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialExtraHot.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialExtraPancakes.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialLittleOil.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialLittleSalt.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialNoBeansprouts.cs" />
@@ -133,26 +153,69 @@
     <Compile Include="Items\SpecialDecoration\SpecialNoOnions.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialNoPeanuts.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialNoPork.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialNoSalt.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialNoShrimps.cs" />
-    <Compile Include="Items\SpecialDecoration\SpecialNotTooHot.cs" />
+    <Compile Include="Items\SpecialDecoration\SpecialLittleChilli.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialNoVegetables.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialNoWaterChestnuts.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialSauceSeperate.cs" />
     <Compile Include="Items\SpecialDecoration\SpecialSpicy.cs" />
-    <Compile Include="PlaceholderTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Items\SpecialDecoration\SpecialNoPeas.cs" />
+    <Compile Include="MenuDesigner\CategoryButton.xaml.cs">
+      <DependentUpon>CategoryButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MenuDesigner\MenuCategory.cs" />
+    <Compile Include="MenuDesigner\FoodMenu.cs" />
+    <Compile Include="MenuDesigner\MenuXMLReaderWriter.cs" />
+    <Compile Include="MenuDesigner\NewMenuCategoryWindow.xaml.cs">
+      <DependentUpon>NewMenuCategoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Printing\TextDecoration\TextDoubleWidthHeight.cs" />
+    <Compile Include="Screens\KineticScrolling\BackgroundConverter.cs" />
+    <Compile Include="Screens\KineticScrolling\CustJournal.xaml.cs">
+      <DependentUpon>CustJournal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\ManagePageElements\ItemSalesWindow.xaml.cs">
+      <DependentUpon>ItemSalesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\ManagePageElements\MenuDesignerWindow.xaml.cs">
+      <DependentUpon>MenuDesignerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\ManagePageElements\OrderLogWindow.xaml.cs">
+      <DependentUpon>OrderLogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\ManagePageElements\PreviousCustomersWindow.xaml.cs">
+      <DependentUpon>PreviousCustomersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\ManagePageElements\PrinterListToStringListConverter.cs" />
+    <Compile Include="Screens\ManagePageElements\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\NewAddressControl.xaml.cs">
       <DependentUpon>NewAddressControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\OrderPageElements\DeliveryWindow.xaml.cs">
+      <DependentUpon>DeliveryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\OrderPageElements\PickItemsWindow.xaml.cs">
+      <DependentUpon>PickItemsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\OrderPageElements\PrintWindow.xaml.cs">
+      <DependentUpon>PrintWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Screens\SpecialReqs.xaml.cs">
       <DependentUpon>SpecialReqs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextBoxInputMaskBehavior.cs" />
-    <Compile Include="Screens\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Settings\UserSettings.cs" />
+    <Compile Include="CustomControls\TextBoxInputMaskBehavior.cs" />
+    <Page Include="CustomControls\PromptTB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Items\SizeButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -161,23 +224,52 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Items\Basket.cs" />
+    <Compile Include="Customer\Basket.cs" />
     <Compile Include="Customer\Address.cs" />
     <Compile Include="Customer\Customer.cs" />
-    <Compile Include="DistanceCalculator.cs" />
-    <Compile Include="ExcelReader\ExcelReader.cs" />
+    <Compile Include="Helper Classes\DistanceCalculator.cs" />
     <Compile Include="Items\ExcelReader_NPOI.cs" />
     <Compile Include="Items\Item.cs" />
-    <Compile Include="Items\ItemProperties.cs" />
     <Compile Include="Items\Order.cs" />
-    <Compile Include="ListViewColumnSorter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MenuDesigner\CategoryButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MenuDesigner\NewMenuCategoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\KineticScrolling\CustJournal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Screens\ManagePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\ManagePageElements\ItemSalesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\ManagePageElements\MenuDesignerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\ManagePageElements\OrderLogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\ManagePageElements\PreviousCustomersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\ManagePageElements\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Screens\NewAddressControl.xaml">
       <SubType>Designer</SubType>
@@ -187,11 +279,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Screens\SpecialReqs.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Screens\OrderPageElements\DeliveryWindow.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\UserControl1.xaml">
+    <Page Include="Screens\OrderPageElements\PickItemsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\OrderPageElements\PrintWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\SpecialReqs.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -203,8 +303,6 @@
     <Compile Include="Screens\OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages.cs" />
-    <Compile Include="Printing\Print.cs" />
     <Compile Include="Printing\ReceiptPrinter.cs" />
     <Compile Include="Printing\TextBitmap.cs" />
     <Compile Include="Printing\TextDecoration\TextBase.cs" />

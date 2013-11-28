@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items
 {
-    class Order
+    class Orderz
     {
         private List<Item> items;
 
-        public Order()
+        public Orderz()
         {
             items = new List<Item>();
         }

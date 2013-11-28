@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items.SpecialDecoration
 {
-    class SpecialNotTooHot : SpecialDecorator
+    [Serializable]
+    class SpecialLittleChilli : SpecialDecorator
     {
-        public SpecialNotTooHot(SpecialComponent specialComponent)
+        public SpecialLittleChilli(SpecialComponent specialComponent)
             : base(specialComponent)
         {
-            this.englishDecoration = "Not too Hot";
+            this.englishDecoration = "Little Chilli";
             this.chineseDecoration = "不是很辣";
+            this.type = SpecialButton.SpecialType.LittleChilli;
         }
     }
 }

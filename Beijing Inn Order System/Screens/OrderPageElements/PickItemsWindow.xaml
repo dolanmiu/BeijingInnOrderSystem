@@ -1,0 +1,127 @@
+﻿<UserControl x:Class="Beijing_Inn_Order_System.Screens.OrderPageElements.PickItemsWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:SizeButton="clr-namespace:Beijing_Inn_Order_System.Items"
+             xmlns:CustomControls="clr-namespace:Beijing_Inn_Order_System.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignWidth="1024" d:DesignHeight="758" Loaded="UserControl_Loaded"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid x:Name="MainGrid">
+
+        <ListBox x:Name="TotalItems" ItemsSource="{Binding Menu.Items}" DisplayMemberPath="NumberedEnglishName" Width="275" Margin="130,38,0,78" Background="#FF2B2B2B" HorizontalAlignment="Left" MouseUp="AddItemToBasket">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}"></Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <!--<uc:CustJournal x:Name="TotalItems" Margin="130,0,0,10" Height="649" Width="275" />-->
+        <ListView x:Name="BasketList" Drop="ListBox_Drop" AllowDrop="True" Margin="410,0,10,78" Background="#FFF0F0F0" BorderThickness="0" Foreground="#FF2E2E2E" FontSize="14" ItemsSource="{Binding OrderDetails.ItemBasket.Items}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="DeleteButton" Tag="{Binding}" Content="Remove" Click="DeleteButton_Click" Width="70"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="BasketItemName" Header="Name" DisplayMemberBinding="{Binding EnglishName}" Width="200"/>
+                    <GridViewColumn Header="Size" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <!--<Button x:Name="PortionSizeToggleButton" Tag="{Binding}" Click="PortionSizeToggleButton_Click" HorizontalAlignment="Stretch" Width="100">
+                                                <Button.Style>
+                                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsSizeDish}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsSizeDish}" Value="False">
+                                                                <Setter Property="Visibility" Value="Hidden" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsLarge}" Value="True">
+                                                                <Setter Property="Content" Value="Large" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsLarge}" Value="False">
+                                                                <Setter Property="Content" Value="Small" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>-->
+                                <SizeButton:SizeButton x:Name="PortionSizeToggleButton" Tag="{Binding}" Width="70">
+
+                                </SizeButton:SizeButton>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Special Reqs">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="AddSpecialButton" Tag="{Binding}" Content="Add" Click="AddSpecialButton_Click" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Extra Details" DisplayMemberBinding="{Binding ConcatProperties}" Width="800"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="ClearBasketButton" Content="New Order 新秩序" Margin="410,0,10,10" Height="63" VerticalAlignment="Bottom" FontSize="22" Click="ClearBasket_Click"/>
+        <Grid x:Name="MenuGrid" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="5,0,0,10" Width="120"></Grid>
+        <!--<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="5,0,0,10" Width="120">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="161*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button x:Name="FilterAppetisersButton" Content="Appetisers" Click="FilterAppetisersButton_Click" Grid.Row="0" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterSoupButton" Content="Soup" Click="FilterSoupButton_Click" Grid.Row="2" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FIlterDuckButton" Content="Duck" Click="FIlterDuckButton_Click" Grid.Row="4" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterSeafoodButton" Content="Seafood" Click="FilterSeafoodButton_Click" Grid.Row="6" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterChickenButton" Content="Chicken" Click="FilterChickenButton_Click" Grid.Row="8" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterPorkBeefLambButton" Content="Pork/Beef" Click="FilterPorkBeefLambButton_Click" Grid.Row="10" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterCurryButton" Content="Curry" Click="FilterCurryButton_Click" Grid.Row="12" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterVegetableButton" Content="Vegetable" Click="FilterVegetableButton_Click" Grid.Row="14" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterChopSueyButton" Content="Chop Suey" Click="FilterChopSueyButton_Click" Grid.Row="16" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterChowMeinButton" Content="Chow Mein" Click="FilterChowMeinButton_Click" Grid.Row="18" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterVermicelliButton" Content="Vermicelli" Click="FilterVermicelliButton_Click" Grid.Row="20" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterRiceButton" Content="Rice" Click="FilterRiceButton_Click" Grid.Row="22" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterEnglishButton" Content="English" Click="FilterEnglishButton_Click" Grid.Row="24" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FilterDessertsButton" Content="Desserts" Click="FilterDessertsButton_Click" Grid.Row="26" FontSize="13.333" Grid.ColumnSpan="2"/>
+            <Button x:Name="FIlterSetMealsButton" Content="Set Meals" Click="FilterSetMealsButton_Click" Grid.Row="28" FontSize="13.333" Grid.ColumnSpan="2"/>
+        </Grid>-->
+        <CustomControls:PromptTB x:Name="SearchItemTextBox" HorizontalAlignment="Left" Height="33" Margin="130,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" TextChanged="SearchItemTextBox_TextChanged" PromptText="Search item name or number..."/>
+        <Button x:Name="ChangeMenuLanguageButton" Content="Change Menu Language 改变语言" HorizontalAlignment="Left" Margin="130,0,0,10" Width="275" Height="63" VerticalAlignment="Bottom" Click="ChangeMenuLanguageButton_Click"/>
+        <!--<CustomControls:PromptTB PromptText="Search item name or number..." HorizontalAlignment="Left" Height="46" Margin="130,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275"></CustomControls:PromptTB>-->
+    </Grid>
+</UserControl>

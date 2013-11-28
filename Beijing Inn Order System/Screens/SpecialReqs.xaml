@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Beijing_Inn_Order_System" x:Class="Beijing_Inn_Order_System.SpecialReqs"
         WindowStartupLocation="CenterScreen" 
+        xmlns:CustomControls="clr-namespace:Beijing_Inn_Order_System.CustomControls"
         Title="SpecialReqs" Height="700" Width="530" BorderThickness="0,10" HasDropShadow="True" WindowStyle="None">
     <Grid Margin="0,0,2,0">
         <!--<Grid Margin="0,0,0,131">
@@ -60,8 +61,9 @@
                 </Style>
             </WrapPanel.Resources>
         </WrapPanel>
-        <WrapPanel x:Name="SpecialSink" Margin="10,321,10,70"/>
+        <WrapPanel x:Name="SpecialSink" Margin="10,321,10,119"/>
         <TextBlock Height="31" Margin="10,10,10,0" TextWrapping="Wrap" Text="Avaliable Specials:" VerticalAlignment="Top" FontSize="20"/>
         <TextBlock Height="31" Margin="10,290,10,0" TextWrapping="Wrap" Text="Chosen Specials:" VerticalAlignment="Top" FontSize="20"/>
+        <CustomControls:PromptTB x:Name="CustomRequirementTextBox" Margin="10,0,10,70" PromptText="Requirements not here? Add them here..." Height="44" VerticalAlignment="Bottom" TextChanged="CustomRequirementTextBox_TextChanged" Background="White" Foreground="Black"/>
     </Grid>
 </Controls:Window>

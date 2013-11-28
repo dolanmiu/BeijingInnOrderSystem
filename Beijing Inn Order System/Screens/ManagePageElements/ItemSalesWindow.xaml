@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Beijing_Inn_Order_System.Screens.ManagePageElements.ItemSalesWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="502" d:DesignWidth="645" Loaded="UserControl_Loaded"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <ListView x:Name="ItemListView" ItemsSource="{Binding TotalBoughtItems}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="English" DisplayMemberBinding="{Binding Item.EnglishName}" Width="150"/>
+                    <GridViewColumn Header="Chinese" DisplayMemberBinding="{Binding Item.ChineseName}" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Count}" Width="150">
+                        <GridViewColumnHeader x:Name="TotalBoughtHeader" Click="SortClickItems" Tag="Count" Content="Total Bought" />
+                    </GridViewColumn>
+                    <GridViewColumn Header="Special Reqs">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="AddSpecialButton" Content="Remove" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

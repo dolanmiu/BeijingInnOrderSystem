@@ -1,16 +1,14 @@
 ﻿using Beijing_Inn_Order_System.Items;
+using Beijing_Inn_Order_System.Settings;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
-namespace Beijing_Inn_Order_System.Items
+namespace Beijing_Inn_Order_System.Customer
 {
-    class Basket
+    public class Basket
     {
-        private List<Item> items = new List<Item>();
-        private float totalPrice;
+        private ObservableCollection<IItem> items = new ObservableCollection<IItem>();
 
         public Basket()
         {
@@ -20,18 +18,19 @@ namespace Beijing_Inn_Order_System.Items
         public float CalculatePrice()
         {
             float total = 0;
-            foreach (Item item in items)
+            foreach (IItem item in items)
             {
                 total += item.Price;
             }
             return total;
         }
 
-        private int CountItemInBasket(Item _item)
+        private int CountItemInBasket(IItem _item)
         {
             //int itemCount = items.GroupBy(n => _item).Any(c => c.Count() > 1);
             int itemCount = 0;
-            foreach (Item item in items) {
+            foreach (IItem item in items)
+            {
                 if (item.IsEqualTo(_item))
                 {
                     itemCount++;
@@ -41,7 +40,7 @@ namespace Beijing_Inn_Order_System.Items
         }
 
         #region Properties
-        public List<Item> Items
+        public ObservableCollection<IItem> Items
         {
             get
             {
@@ -49,17 +48,17 @@ namespace Beijing_Inn_Order_System.Items
             }
         }
 
-        public List<Tuple<Item, int>> ConcatItems
+        public List<Tuple<IItem, int>> ConcatItems
         {
             get
             {
-                List<Tuple<Item, int>> result = new List<Tuple<Item, int>>();
-                List<Item> tempItemCache = new List<Item>();
-                foreach (Item item in items)
+                List<Tuple<IItem, int>> result = new List<Tuple<IItem, int>>();
+                List<IItem> tempItemCache = new List<IItem>();
+                foreach (IItem item in items)
                 {
                     if (!IsItemInList(tempItemCache, item))
                     {
-                        Tuple<Item, int> newItemTuple = new Tuple<Item, int>(item, CountItemInBasket(item));
+                        Tuple<IItem, int> newItemTuple = new Tuple<IItem, int>(item, CountItemInBasket(item));
                         tempItemCache.Add(item);
                         result.Add(newItemTuple);
                     }
@@ -68,9 +67,9 @@ namespace Beijing_Inn_Order_System.Items
             }
         }
 
-        private bool IsItemInList(List<Item> items, Item _item)
+        private bool IsItemInList(List<IItem> items, IItem _item)
         {
-            foreach (Item item in items)
+            foreach (IItem item in items)
             {
                 if (item.IsEqualTo(_item)) 
                 {
@@ -78,14 +77,6 @@ namespace Beijing_Inn_Order_System.Items
                 } 
             }
             return false;
-        }
-
-        public float TotalPrice
-        {
-            get
-            {
-                return totalPrice;
-            }
         }
         #endregion
     }

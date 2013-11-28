@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Beijing_Inn_Order_System
+namespace Beijing_Inn_Order_System.Helper_Classes
 {
     public static class DistanceCalculator
     {
@@ -13,12 +13,25 @@ namespace Beijing_Inn_Order_System
 
         public static double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
         {
+            if (lat1 == lat2 && lon1 == lon2) return 0;
             double R = 6378.16; // Radius of the earth in km
             double dLat = deg2rad(lat2 - lat1);  // deg2rad below
             double dLon = deg2rad(lon2 - lon1);
             double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) + Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) * Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             double d = R * c; // Distance in km
+            return RoundToSignificantDigits(d, 3);
+        }
+
+        public static double getDistanceFromLatLonInMiles(double lat1, double lon1, double lat2, double lon2)
+        {
+            if (lat1 == lat2 && lon1 == lon2) return 0;
+            double R = 6378.16; // Radius of the earth in km
+            double dLat = deg2rad(lat2 - lat1);  // deg2rad below
+            double dLon = deg2rad(lon2 - lon1);
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) + Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) * Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            double d = R * c * 0.621371192; // Distance in km * conversion to miles
             return RoundToSignificantDigits(d, 3);
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items.SpecialDecoration
 {
+    [Serializable]
     class SpecialLittleSalt : SpecialDecorator
     {
         public SpecialLittleSalt(SpecialComponent specialComponent)
@@ -13,6 +14,7 @@ namespace Beijing_Inn_Order_System.Items.SpecialDecoration
         {
             this.englishDecoration = "Little Salt";
             this.chineseDecoration = "小盐";
+            this.type = SpecialButton.SpecialType.LittleSalt;
         }
     }
 }

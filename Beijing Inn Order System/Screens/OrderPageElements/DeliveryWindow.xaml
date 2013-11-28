@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="Beijing_Inn_Order_System.Screens.OrderPageElements.DeliveryWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:CustomControls="clr-namespace:Beijing_Inn_Order_System.CustomControls"
+             xmlns:WpfKb="clr-namespace:WpfKb.Controls;assembly=WpfKb"
+             d:DesignHeight="768" d:DesignWidth="1024"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
+    <Grid>
+        <TextBlock x:Name="RoadTextBlock" Margin="0,62,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48"  Text="{Binding OrderDetails.RoadText}" TextAlignment="Right" HorizontalAlignment="Right" Width="1004"/>
+        <TextBlock x:Name="TownTextBlock" Margin="0,127,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36" Text="{Binding OrderDetails.TownText}" TextAlignment="Right" HorizontalAlignment="Right" Width="1004"/>
+        <TextBlock x:Name="PostCodeTextBlock" Margin="0,173,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36" Text="{Binding OrderDetails.PostCodeText}" TextAlignment="Right" HorizontalAlignment="Right" Width="1004"/>
+        <CustomControls:PromptTB x:Name="SearchTextBox" Margin="10,10,329,0" TextWrapping="Wrap" FontSize="22" AllowDrop="False" CaretIndex="100" TextAlignment="Center" Height="43" VerticalAlignment="Top" PromptText="Search postcode or road 搜索邮政编码或道路" TextChanged="SearchTextBox_TextChanged"/>
+        <TextBlock x:Name="DistanceTextBlock" Margin="0,247,10,0" TextWrapping="Wrap" Text="{Binding OrderDetails.DistanceText}" FontSize="36" TextAlignment="Right" Height="45" VerticalAlignment="Top" HorizontalAlignment="Right" Width="1004"/>
+        <CustomControls:PromptTB x:Name="HouseNumberTextBox" ContentText="{Binding OrderDetails.HouseNumber, Mode=OneWayToSource}" HorizontalAlignment="Right" Margin="0,10,10,0" TextWrapping="Wrap" CaretIndex="100" Width="314" Height="43" FontSize="22" AllowDrop="False" MaxLength="3" CharacterCasing="Upper" TextAlignment="Center" VerticalAlignment="Top" PromptText="House Number 门牌号"/>
+        <Button x:Name="NewAddressButton" Content="Can't find Address? New Address 新地址" HorizontalAlignment="Right" Margin="0,0,10,274" Width="314" Click="NewAddressButton_Click" Height="56" VerticalAlignment="Bottom"/>
+        <WpfKb:OnScreenKeyboard x:Name="Keyboard" AreAnimationsEnabled="True" Margin="100,0" Height="269" VerticalAlignment="Bottom"/>
+        <CustomControls:PromptTB x:Name="PhoneNumberTextBox" ContentText="{Binding OrderDetails.PhoneNumber, Mode=OneWayToSource}" HorizontalAlignment="Right" Height="41" Margin="0,297,10,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="20" TextAlignment="Center" PromptText="Phone Number 电话号码"></CustomControls:PromptTB>
+        <ListBox x:Name="SearchResultsListBox" ItemsSource="{Binding SearchedAddresses}" DisplayMemberPath="Concat" Margin="10,58,541,274" Background="#FF2B2B2B" SelectionChanged="SearchResultsListBox_SelectionChanged">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}"/>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+
+    </Grid>
+</UserControl>

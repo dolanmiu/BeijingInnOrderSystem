@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items.SpecialDecoration
 {
+    [Serializable]
     class SpecialSpicy : SpecialDecorator
     {
         public SpecialSpicy(SpecialComponent specialComponent)
@@ -13,6 +14,7 @@ namespace Beijing_Inn_Order_System.Items.SpecialDecoration
         {
             this.englishDecoration = "Spicy";
             this.chineseDecoration = "辣";
+            this.type = SpecialButton.SpecialType.Spicy;
         }
     }
 }

@@ -4,156 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:Behaviors="clr-namespace:Beijing_Inn_Order_System" 
-             xmlns:WpfKb="clr-namespace:WpfKb.Controls;assembly=WpfKb"
-             xmlns:wpfui="clr-namespace:WpfUIPickerLib;assembly=WpfUIPickerLib"
-             mc:Ignorable="d" Loaded="OnLoad" d:DesignWidth="968.216" d:DesignHeight="771.774">
+             xmlns:Behaviors="clr-namespace:Beijing_Inn_Order_System"
+             xmlns:SizeButton="clr-namespace:Beijing_Inn_Order_System.Items"
+             xmlns:CustomControls="clr-namespace:Beijing_Inn_Order_System.CustomControls"
+             xmlns:uc="clr-namespace:Beijing_Inn_Order_System"
+             mc:Ignorable="d" Loaded="OnLoad" d:DesignWidth="1024" d:DesignHeight="758"
+             xmlns:pages="clr-namespace:Beijing_Inn_Order_System.Screens.OrderPageElements"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}" Unloaded="UserControl_Unloaded">
 
     <Grid>
 
         <TabControl>
-            <TabItem Header="PICK ITEMS">
-                <Grid>
-
-                    <ListBox x:Name="TotalItems" DisplayMemberPath="EnglishName" PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown" Width="343" SelectedIndex="0" Margin="246,0,0,78" Background="#FF2B2B2B" HorizontalAlignment="Left"/>
-                    <ListView x:Name="BasketList" DisplayMemberPath="EnglishName" Drop="ListBox_Drop" AllowDrop="True" Margin="594,0,10,78" Background="#FFF0F0F0" BorderThickness="0" Foreground="#FF2E2E2E" FontSize="14">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button x:Name="DeleteButton" Tag="{Binding}" Content="Remove" Click="DeleteButton_Click" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="English" DisplayMemberBinding="{Binding EnglishName}" Width="400"/>
-                                <GridViewColumn Header="Large/Small" Width="100">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button x:Name="PortionSizeToggleButton" Tag="{Binding}" Click="PortionSizeToggleButton_Click" HorizontalAlignment="Stretch" Width="Auto">
-                                                <Button.Style>
-                                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsSizeDish}" Value="True">
-                                                                <Setter Property="Visibility" Value="Visible" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding IsSizeDish}" Value="False">
-                                                                <Setter Property="Visibility" Value="Hidden" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding IsLarge}" Value="True">
-                                                                <Setter Property="Content" Value="Large" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding IsLarge}" Value="False">
-                                                                <Setter Property="Content" Value="Small" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Button.Style>
-                                            </Button>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Special Reqs">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button x:Name="AddSpecialButton" Tag="{Binding}" Content="Add" Click="AddSpecialButton_Click" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Extra Details" DisplayMemberBinding="{Binding ConcatProperties}" Width="800"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Button x:Name="ClearBasketButton" Content="Clear Basket" Margin="0,0,10,10" Height="63" VerticalAlignment="Bottom" FontSize="22" Click="ClearBasket_Click" HorizontalAlignment="Right" Width="424"/>
-
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="5,0,0,10" Width="236">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="161*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Button x:Name="FilterAppetisersButton" Content="Appetisers" Click="FilterAppetisersButton_Click" Grid.Row="0" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterSoupButton" Content="Soup" Click="FilterSoupButton_Click" Grid.Row="2" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FIlterDuckButton" Content="Duck" Click="FIlterDuckButton_Click" Grid.Row="4" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterSeafoodButton" Content="Seafood" Click="FilterSeafoodButton_Click" Grid.Row="6" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterChickenButton" Content="Chicken" Click="FilterChickenButton_Click" Grid.Row="8" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterPorkBeefLambButton" Content="Pork/Beef" Click="FilterPorkBeefLambButton_Click" Grid.Row="10" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterCurryButton" Content="Curry" Click="FilterCurryButton_Click" Grid.Row="12" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterVegetableButton" Content="Vegetable" Click="FilterVegetableButton_Click" Grid.Row="14" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterChopSueyButton" Content="Chop Suey" Click="FilterChopSueyButton_Click" Grid.Row="16" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterChowMeinButton" Content="Chow Mein" Click="FilterChowMeinButton_Click" Grid.Row="18" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterVermicelliButton" Content="Vermicelli" Click="FilterVermicelliButton_Click" Grid.Row="20" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterRiceButton" Content="Rice" Click="FilterRiceButton_Click" Grid.Row="22" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterEnglishButton" Content="English" Click="FilterEnglishButton_Click" Grid.Row="24" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FilterDessertsButton" Content="Desserts" Click="FilterDessertsButton_Click" Grid.Row="26" FontSize="13.333" Grid.ColumnSpan="2"/>
-                        <Button x:Name="FIlterSetMealsButton" Content="Set Meals" Click="FilterSetMealsButton_Click" Grid.Row="28" FontSize="13.333" Grid.ColumnSpan="2"/>
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="DELIVERY" HorizontalAlignment="Left">
-                <Grid>
-                    <TextBlock x:Name="RoadTextBlock" Margin="473,97,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48" Text="Road Name" TextAlignment="Right"/>
-                    <TextBlock x:Name="TownTextBlock" Margin="473,162,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36" Text="Town Name" TextAlignment="Right"/>
-                    <TextBlock x:Name="PostCodeTextBlock" Margin="473,208,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36" Text="Post Code" TextAlignment="Right"/>
-                    <TextBox x:Name="SearchTextBox" Margin="10,10,10,0" TextWrapping="Wrap" FontSize="22" AllowDrop="False" CaretIndex="100" TextAlignment="Center" Height="43" VerticalAlignment="Top" Text="Search postcode or road..." TextChanged="SearchTextBox_TextChanged" LostFocus="SearchTextBox_LostFocus" GotFocus="SearchTextBox_GotFocus"  />
-                    <TextBlock x:Name="DistanceTextBlock" Margin="473,282,10,0" TextWrapping="Wrap" Text="Distance: 0Km" FontSize="36" TextAlignment="Right" Height="45" VerticalAlignment="Top"/>
-                    <TextBox x:Name="HouseNumberTextBox" HorizontalAlignment="Right" Margin="0,58,10,0" TextWrapping="Wrap" Width="314" FontSize="22" TextChanged="HouseNumberTextBox_TextChanged" AllowDrop="False" MaxLength="3" CharacterCasing="Upper" TextAlignment="Center" Height="39" VerticalAlignment="Top" />
-                    <TextBlock HorizontalAlignment="Right" Margin="0,58,329,0" TextWrapping="Wrap" Text="Number:" VerticalAlignment="Top" FontSize="22" Height="39"/>
-                    <Button x:Name="NewAddressButton" Content="Can't find Address? New Address" HorizontalAlignment="Right" Margin="0,0,10,297" Width="314" Click="NewAddressButton_Click" Height="56" VerticalAlignment="Bottom"/>
-                    <WpfKb:OnScreenKeyboard x:Name="Keyboard" AreAnimationsEnabled="True" Margin="100,0" Height="292" VerticalAlignment="Bottom"/>
-                    <ListBox x:Name="SearchResultsListBox" DisplayMemberPath="Concat" Margin="10,58,500,297" Background="#FF2B2B2B" SelectionChanged="SearchResultsListBox_SelectionChanged"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="PRINT" Margin="4,0,-4,0">
-                <Grid>
-                    <ListView x:Name="ItemBasketListView" Margin="10,0,402,10" Background="#FFF0F0F0" BorderThickness="0" Foreground="#FF2E2E2E" FontSize="14">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="English" DisplayMemberBinding="{Binding EnglishName}" Width="200"/>
-                                <GridViewColumn Header="Chinese" DisplayMemberBinding="{Binding ChineseName}" Width="100"/>
-                                <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="100"/>
-                                <GridViewColumn Header="Extra Details" DisplayMemberBinding="{Binding ConcatProperties}" Width="800"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <TextBlock x:Name="RoadTextBlock_Print" Margin="571,97,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48" Text="Road Name" TextAlignment="Right"/>
-                    <Button x:Name="PrintButton" Content="Print" HorizontalAlignment="Right" Margin="0,0,10,10" Width="387" FontSize="36" Height="102" VerticalAlignment="Bottom" Click="PrintButton_Click"/>
-                    <TextBlock x:Name="TownTextBlock_Print" Margin="571,162,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36" Text="Town Name" TextAlignment="Right"/>
-                    <TextBlock x:Name="PostCodeTextBlock_Print" Margin="571,208,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36" Text="Post Code" TextAlignment="Right"/>
-                    <TextBlock x:Name="PriceTextBlock" Margin="571,261,10,0" TextWrapping="Wrap" Text="£0.00" FontSize="80" Height="110" VerticalAlignment="Top" TextAlignment="Right"/>
-                    <TextBlock x:Name="PrinterStatusTextBlock" Margin="571,0,10,117" TextWrapping="Wrap" TextAlignment="Right" Height="58" VerticalAlignment="Bottom"/>
-
-                </Grid>
-            </TabItem>
+            <TabItem Header="PICK ITEMS" x:Name="PickItemsTab"></TabItem>
+            <TabItem Header="DELIVERY" x:Name="DeliveryTab"></TabItem>
+            <TabItem Header="PRINT" x:Name="PrintTab"></TabItem>
         </TabControl>
     </Grid>
 </UserControl>

@@ -1,5 +1,8 @@
 ﻿using Beijing_Inn_Order_System.Customer;
 using Beijing_Inn_Order_System.Items;
+using Beijing_Inn_Order_System.MenuDesigner;
+using Beijing_Inn_Order_System.Printing;
+using Beijing_Inn_Order_System.Screens.ManagePageElements;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,29 +26,32 @@ namespace Beijing_Inn_Order_System
     /// </summary>
     public partial class ManagePage : UserControl
     {
-        //private ListViewColumnSorter lvwColumnSorter;
-        private GridViewColumnHeader _CurSortColItem = null;
-        private SortAdorner _CurAdornerItem = null;
-        private GridViewColumnHeader _CurSortColCustomer = null;
-        private SortAdorner _CurAdornerCustomer = null;
+        private ReceiptPrinter printer;
 
-        public ManagePage()
+        public ManagePage(ReceiptPrinter printer, MenuXMLReaderWriter menuReaderWriter)
         {
+            this.printer = printer;
             InitializeComponent();
+            MenuDesignerTab.Content = new MenuDesignerWindow(menuReaderWriter);
         }
 
         private void OnLoad(object sender, RoutedEventArgs e)
         {
-            Item.LoadTotalOrders();
-            Address.LoadTotalCustomers();
-            ItemListView.ItemsSource = Item.TotalBoughtItems.DefaultView;
-            CustomerListView.ItemsSource = Address.TotalCustomers.DefaultView;
-
-            SortClickItems(TotalBoughtHeader, null);
-            SortClickCustomers(TotalCustomersHeader, null);
         }
 
-        private void SortClickCustomers(object sender, RoutedEventArgs e)
+        public ReceiptPrinter ReceiptPrinter
+        {
+            get
+            {
+                return printer;
+            }
+            set
+            {
+                printer = value;
+            }
+        }
+
+        /*private void SortClickCustomers(object sender, RoutedEventArgs e)
         {
             GridViewColumnHeader column = sender as GridViewColumnHeader;
             String field = column.Tag as String;
@@ -68,7 +74,7 @@ namespace Beijing_Inn_Order_System
             CustomerListView.Items.SortDescriptions.Add(new SortDescription(field, newDir));
         }
 
-        private void SortClickItems(object sender, RoutedEventArgs e)
+        /*private void SortClickItems(object sender, RoutedEventArgs e)
         {
             GridViewColumnHeader column = sender as GridViewColumnHeader;
             String field = column.Tag as String;
@@ -89,35 +95,7 @@ namespace Beijing_Inn_Order_System
             _CurAdornerItem = new SortAdorner(_CurSortColItem, newDir);
             AdornerLayer.GetAdornerLayer(_CurSortColItem).Add(_CurAdornerItem);
             ItemListView.Items.SortDescriptions.Add(new SortDescription(field, newDir));
-        }
-    }
-
-    public class SortAdorner : Adorner
-    {
-        private readonly static Geometry _AscGeometry = Geometry.Parse("M 0,0 L 10,0 L 5,5 Z");
-        private readonly static Geometry _DescGeometry = Geometry.Parse("M 0,5 L 10,5 L 5,0 Z");
-
-        public ListSortDirection Direction { get; private set; }
-
-        public SortAdorner(UIElement element, ListSortDirection dir) : base(element)
-        { 
-            Direction = dir; 
-        }
-
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            base.OnRender(drawingContext);
-
-            if (AdornedElement.RenderSize.Width < 20)
-            {
-                return;
-            }
-
-            drawingContext.PushTransform(new TranslateTransform(AdornedElement.RenderSize.Width - 15,(AdornedElement.RenderSize.Height - 5) / 2));
-
-            drawingContext.DrawGeometry(Brushes.Black, null, Direction == ListSortDirection.Ascending ? _AscGeometry : _DescGeometry);
-            drawingContext.Pop();
-        }
+        }*/
     }
 }
 

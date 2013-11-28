@@ -1,18 +1,12 @@
-﻿using Beijing_Inn_Order_System.Items;
+﻿using Beijing_Inn_Order_System.CustomControls;
+using Beijing_Inn_Order_System.Items;
 using Beijing_Inn_Order_System.Items.SpecialDecoration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Linq;
 
 namespace Beijing_Inn_Order_System
 {
@@ -21,23 +15,53 @@ namespace Beijing_Inn_Order_System
     /// </summary>
     public partial class SpecialReqs : Elysium.Controls.Window
     {
-        private Item item;
+        private IItem item;
         private List<SpecialButton> buttons = new List<SpecialButton>();
 
-        public SpecialReqs(Item item)
+        public SpecialReqs(IItem item)
         {
             InitializeComponent();
             this.item = item;
-            //NoPeasCheckBox.IsChecked = item.Properties.NoPeas;
-            //NoOnionsCheckBox.IsChecked = item.Properties.NoOnions;
-            //NoChilliCheckBox.IsChecked = item.Properties.NoChilli;
             SetUpWrapPanels();
+            List<SpecialComponent> props = item.GetPropertyList();
+            PositionButtons(props);
+            if (item.ExtraDetails != "")
+            {
+                CustomRequirementTextBox.Text = item.ExtraDetails;
+            }
+        }
+
+        private void PositionButtons(List<SpecialComponent> properties)
+        {
+            if (properties == null) return;
+            foreach (SpecialComponent component in properties)
+            {
+                SpecialButton b = FindButton(component);
+                if (b == null) continue;
+                ToggleButton(b);
+            }
+        }
+
+        private SpecialButton FindButton(SpecialComponent component)
+        {            
+            foreach(SpecialButton button in buttons) {
+                if (button.IsEqualTo(component.GetSpecialType()))
+                {
+                    return button;
+                }
+            }
+            return null;
         }
 
         private void SetUpWrapPanels()
         {
-            foreach (SpecialButton.SpecialType type in Enum.GetValues(typeof(SpecialButton.SpecialType)))
+            List<SpecialButton.SpecialType> sorted = (from e in Enum.GetValues(typeof(SpecialButton.SpecialType)).Cast<SpecialButton.SpecialType>()
+                          orderby e.ToString()
+                          select e).ToList();
+
+            foreach (SpecialButton.SpecialType type in sorted)
             {
+                if (type == SpecialButton.SpecialType.NoType) continue;
                 SpecialButton sb = new SpecialButton(type.ToString(), this, type);
                 buttons.Add(sb);
                 SpecialSource.Children.Add(sb);
@@ -154,7 +178,7 @@ namespace Beijing_Inn_Order_System
             foreach (SpecialButton button in SpecialSink.Children) {
                 special = button.Decorate(special);
             }
-            item.Properties.Special = special;
+            item.Properties = special;
             this.Close();
         }
 
@@ -170,6 +194,13 @@ namespace Beijing_Inn_Order_System
                 SpecialSink.Children.Remove(button);
                 SpecialSource.Children.Add(button);
             }
+        }
+
+        private void CustomRequirementTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (item == null) return;
+            PromptTB tb = (PromptTB)sender;
+            item.ExtraDetails = tb.ContentText;
         }
     }
 }

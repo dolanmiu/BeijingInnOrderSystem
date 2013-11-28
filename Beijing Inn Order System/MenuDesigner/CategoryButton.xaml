@@ -1,0 +1,15 @@
+﻿<Button x:Class="Beijing_Inn_Order_System.MenuDesigner.CategoryButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:Controls="clr-namespace:Elysium.Controls;assembly=Elysium"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Click="Button_Click" Padding="0">
+    <Button.Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}"></Style>
+    </Button.Style>
+    <Grid>
+            
+    </Grid>
+</Button>

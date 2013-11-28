@@ -6,16 +6,16 @@
         xmlns:params="http://schemas.codeplex.com/elysium/params" x:Class="Beijing_Inn_Order_System.MainWindow"
         xmlns:src="clr-namespace:Beijing_Inn_Order_System.Items"
         xmlns:WpfKb="clr-namespace:WpfKb.Controls;assembly=WpfKb"
-        xmlns:wpfui="clr-namespace:WpfUIPickerLib;assembly=WpfUIPickerLib"
         WindowStartupLocation="CenterScreen" 
         params:Design.Theme="Dark" 
         params:Manager.Theme="Dark"
-        Loaded="OnLoad" Title="Beijing Inn Order System" Width="900" Height="600" Closing="MainScreen_Closing">
+        Loaded="OnLoad" Title="{Binding WindowTitle}" Width="1024" Height="758" Closing="MainScreen_Closing"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" WindowState="Maximized">
     <Controls:Window.ApplicationBar>
         <Controls:ApplicationBar x:Name="AppBar" Height="80">
             <!-- Right Click on the UI to open Application Bar -->
             <Controls:DropDownCommandButton x:Name="OrderButton" Header="ORDER" Width="100" Height="70" Click="OrderButton_Click"/>
-            <Controls:DropDownCommandButton x:Name="ManageButton" Header="MANAGE" Width="100" Height="70" Click="ManageButton_Click"/>
+            <Controls:DropDownCommandButton x:Name="ManageButton" Header="STATS" Width="100" Height="70" Click="ManageButton_Click"/>
         </Controls:ApplicationBar>
     </Controls:Window.ApplicationBar>
     <Grid>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items.SpecialDecoration
 {
+    [Serializable]
     class SpecialNoMSG : SpecialDecorator
     {
         public SpecialNoMSG(SpecialComponent specialComponent)
@@ -13,6 +14,7 @@ namespace Beijing_Inn_Order_System.Items.SpecialDecoration
         {
             this.englishDecoration = "No MSG";
             this.chineseDecoration = "这味精";
+            this.type = SpecialButton.SpecialType.NoMSG;
         }
     }
 }

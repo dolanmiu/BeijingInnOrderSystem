@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items.SpecialDecoration
 {
+    [Serializable]
     class SpecialNoPeas : SpecialDecorator
     {
         public SpecialNoPeas(SpecialComponent specialComponent)
@@ -13,6 +14,7 @@ namespace Beijing_Inn_Order_System.Items.SpecialDecoration
         {
             this.englishDecoration = "No Peas";
             this.chineseDecoration = "豌豆";
+            this.type = SpecialButton.SpecialType.NoPeas;
         }
     }
 }

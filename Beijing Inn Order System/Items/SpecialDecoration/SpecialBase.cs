@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items.SpecialDecoration
 {
+    [Serializable]
     class SpecialBase : SpecialComponent
     {
         private string englishText;
@@ -25,6 +26,16 @@ namespace Beijing_Inn_Order_System.Items.SpecialDecoration
         public override string GetChineseValue()
         {
             return chineseText;
+        }
+
+        public override SpecialComponent BaseComponent()
+        {
+            return null;
+        }
+
+        public override SpecialButton.SpecialType GetSpecialType()
+        {
+            return SpecialButton.SpecialType.NoType;
         }
     }
 }

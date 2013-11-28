@@ -117,8 +117,7 @@ namespace Beijing_Inn_Order_System.Items
             {
                 string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 fileDir = Path.Combine(folder, "Beijing Inn");
-                if (!Directory.Exists(fileDir))
-                    Directory.CreateDirectory(fileDir);
+                if (!Directory.Exists(fileDir)) Directory.CreateDirectory(fileDir);
             }
             string fileLocation = fileDir + "\\" + filename;
             if (!File.Exists(fileLocation))

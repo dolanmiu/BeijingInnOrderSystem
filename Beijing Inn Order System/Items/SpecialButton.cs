@@ -7,7 +7,7 @@ namespace Beijing_Inn_Order_System.Items
     public class SpecialButton : Button
     {
         SpecialReqs reqs;
-        public enum SpecialType { ExtraHot, LittleOil, LittleSalt, NoBeanSprouts, NoChilli, NoMSG, NoOnions, NoPeanuts, NoPeas, NoPork, NoShrimps, NotTooHot, NoVegetables, NoWaterChestnuts, SauceSeperate, Spicy }
+        public enum SpecialType { NoType, ExtraHot, LittleOil, LittleSalt, NoBeanSprouts, NoChilli, NoMSG, NoOnions, NoPeanuts, NoPeas, NoPork, NoShrimps, LittleChilli, NoVegetables, NoWaterChestnuts, SauceSeperate, Spicy, ExtraPancakes, NoSalt }
         private SpecialType type;
 
         public SpecialButton(string text, SpecialReqs reqs, SpecialType type)
@@ -19,12 +19,26 @@ namespace Beijing_Inn_Order_System.Items
 
             this.Margin = new System.Windows.Thickness(10, 10, 0, 0);
             this.Padding = new System.Windows.Thickness(5, 5, 5, 5);
-
         }
 
         private void click(object sender, EventArgs e)
         {
             reqs.ToggleButton(this);
+        }
+
+        public bool IsEqualTo(SpecialType type)
+        {
+            if (this.type == type)
+            {
+                return true;
+            }
+            return false;
+            /*if (name.ToLower() == Content.ToString().ToLower())
+            {
+                return true;
+            }
+            return false;*/
+
         }
 
         public SpecialComponent Decorate(SpecialComponent special)
@@ -65,8 +79,8 @@ namespace Beijing_Inn_Order_System.Items
                 case SpecialType.NoShrimps:
                     s = new SpecialNoShrimps(special);
                     return s;
-                case SpecialType.NotTooHot:
-                    s = new SpecialNotTooHot(special);
+                case SpecialType.LittleChilli:
+                    s = new SpecialLittleChilli(special);
                     return s;
                 case SpecialType.NoVegetables:
                     s = new SpecialNoVegetables(special);
@@ -79,6 +93,12 @@ namespace Beijing_Inn_Order_System.Items
                     return s;
                 case SpecialType.Spicy:
                     s = new SpecialSpicy(special);
+                    return s;
+                case SpecialType.ExtraPancakes:
+                    s = new SpecialExtraPancakes(special);
+                    return s;
+                case SpecialType.NoSalt:
+                    s = new SpecialNoSalt(special);
                     return s;
                 default:
                     return special;

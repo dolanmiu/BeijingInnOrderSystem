@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Beijing_Inn_Order_System.Items.SpecialDecoration
 {
+    [Serializable]
     class SpecialSauceSeperate : SpecialDecorator
     {
         public SpecialSauceSeperate(SpecialComponent specialComponent)
@@ -13,6 +14,7 @@ namespace Beijing_Inn_Order_System.Items.SpecialDecoration
         {
             this.englishDecoration = "Sauce Seperate";
             this.chineseDecoration = "酱分开";
+            this.type = SpecialButton.SpecialType.SauceSeperate;
         }
     }
 }
