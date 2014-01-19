@@ -51,6 +51,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Beijing_Inn_Order_System.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
     <Reference Include="Elysium, Version=2.0.976.3, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
@@ -96,6 +99,7 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -120,10 +124,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="CustomControls\PromptTB.xaml.cs">
       <DependentUpon>PromptTB.xaml</DependentUpon>
     </Compile>
@@ -166,7 +170,7 @@
     </Compile>
     <Compile Include="MenuDesigner\MenuCategory.cs" />
     <Compile Include="MenuDesigner\FoodMenu.cs" />
-    <Compile Include="MenuDesigner\MenuXMLReaderWriter.cs" />
+    <Compile Include="MenuDesigner\MenuManager.cs" />
     <Compile Include="MenuDesigner\NewMenuCategoryWindow.xaml.cs">
       <DependentUpon>NewMenuCategoryWindow.xaml</DependentUpon>
     </Compile>
@@ -175,16 +179,16 @@
     <Compile Include="Screens\KineticScrolling\CustJournal.xaml.cs">
       <DependentUpon>CustJournal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Screens\ManagePageElements\ItemSalesWindow.xaml.cs">
+    <Compile Include="Screens\StatisticsPageElements\ItemSalesWindow.xaml.cs">
       <DependentUpon>ItemSalesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Screens\ManagePageElements\MenuDesignerWindow.xaml.cs">
       <DependentUpon>MenuDesignerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Screens\ManagePageElements\OrderLogWindow.xaml.cs">
+    <Compile Include="Screens\StatisticsPageElements\OrderLogWindow.xaml.cs">
       <DependentUpon>OrderLogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Screens\ManagePageElements\PreviousCustomersWindow.xaml.cs">
+    <Compile Include="Screens\StatisticsPageElements\PreviousCustomersWindow.xaml.cs">
       <DependentUpon>PreviousCustomersWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Screens\ManagePageElements\PrinterListToStringListConverter.cs" />
@@ -206,8 +210,12 @@
     <Compile Include="Screens\SpecialReqs.xaml.cs">
       <DependentUpon>SpecialReqs.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Screens\StatisticsPage.xaml.cs">
+      <DependentUpon>StatisticsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="CustomControls\TextBoxInputMaskBehavior.cs" />
+    <Compile Include="SingleInstance.cs" />
     <Page Include="CustomControls\PromptTB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -251,7 +259,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Screens\ManagePageElements\ItemSalesWindow.xaml">
+    <Page Include="Screens\StatisticsPageElements\ItemSalesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -259,11 +267,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\ManagePageElements\OrderLogWindow.xaml">
+    <Page Include="Screens\StatisticsPageElements\OrderLogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\ManagePageElements\PreviousCustomersWindow.xaml">
+    <Page Include="Screens\StatisticsPageElements\PreviousCustomersWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -294,6 +302,10 @@
     <Page Include="Screens\SpecialReqs.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\StatisticsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

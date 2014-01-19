@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -36,8 +37,14 @@ namespace Beijing_Inn_Order_System.MenuDesigner
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           SetMenuItemsDelegate setMenuItems = new SetMenuItemsDelegate(SetMenuItems);
-           setMenuItems.BeginInvoke(null, null);
+           //SetMenuItemsDelegate setMenuItems = new SetMenuItemsDelegate(SetMenuItems);
+           //setMenuItems.BeginInvoke(null, null);
+
+            Task setMenuTask = new Task(() =>
+            {
+                SetMenuItems();
+            });
+            setMenuTask.Start();
         }
 
         private void SetMenuItems() 

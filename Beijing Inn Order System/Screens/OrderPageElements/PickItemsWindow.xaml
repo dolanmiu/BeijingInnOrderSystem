@@ -50,9 +50,7 @@
                                                     </Style>
                                                 </Button.Style>
                                             </Button>-->
-                                <SizeButton:SizeButton x:Name="PortionSizeToggleButton" Tag="{Binding}" Width="70">
-
-                                </SizeButton:SizeButton>
+                                <SizeButton:SizeButton x:Name="PortionSizeToggleButton" Tag="{Binding}" Width="70"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

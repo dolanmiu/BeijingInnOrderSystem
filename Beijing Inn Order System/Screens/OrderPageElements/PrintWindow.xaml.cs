@@ -3,6 +3,7 @@ using Beijing_Inn_Order_System.Items;
 using Beijing_Inn_Order_System.Printing;
 using System;
 using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,6 +16,7 @@ namespace Beijing_Inn_Order_System.Screens.OrderPageElements
     {
         private OrderDetails orderDetails;
         private ReceiptPrinter printer;
+        private delegate void PrintDelegate();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,6 +43,18 @@ namespace Beijing_Inn_Order_System.Screens.OrderPageElements
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
+            PrintDelegate del = new PrintDelegate(PrintReceipt);
+            del.BeginInvoke(CleanUpPrinting, del);
+        }
+
+        private void PrintReceipt()
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                PrintButton.IsEnabled = false;
+                PrintButton.Content = "Printing...";
+            }));
+
             if (orderDetails.CurrentAddress == null)
             {
                 printer.Print(orderDetails);
@@ -57,6 +71,15 @@ namespace Beijing_Inn_Order_System.Screens.OrderPageElements
                 NotifyPropertyChanged("PrintDiagnosticMessage");
             }
             AddressManager.AddToRecentOrder(orderDetails);
+        }
+
+        private void CleanUpPrinting(IAsyncResult result)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                PrintButton.IsEnabled = true;
+                PrintButton.Content = "Print 打印";
+            }));
         }
 
         #region Properties
@@ -96,21 +119,21 @@ namespace Beijing_Inn_Order_System.Screens.OrderPageElements
         {
             get
             {
-                string message = "";
+                StringBuilder message = new StringBuilder();
                 if (string.IsNullOrEmpty(orderDetails.CurrentAddress.Number)) 
                 {
-                    message += "House Number not specified! ";
+                    message.Append("House Number not specified! ");
                 }
                 if (string.IsNullOrEmpty(orderDetails.CurrentAddress.Road)) 
                 {
-                    message += "Road not not specified! ";
+                    message.Append("Road not not specified! ");
                 }
 
                 if (string.IsNullOrEmpty(orderDetails.CurrentAddress.PhoneNumber))
                 {
-                    message += "Phone Number not specified! ";
+                    message.Append("Phone Number not specified! ");
                 }
-                return message;
+                return message.ToString();
             }
         }
         #endregion

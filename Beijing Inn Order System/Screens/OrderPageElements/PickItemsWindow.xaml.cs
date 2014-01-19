@@ -26,7 +26,6 @@ namespace Beijing_Inn_Order_System.Screens.OrderPageElements
     public partial class PickItemsWindow : UserControl, INotifyPropertyChanged
     {
         private OrderDetails orderDetails;
-        private ObservableCollection<MenuCategory> menuCategories;
         private FoodMenu menu;
 
         public delegate ObservableCollection<IItem> SearchMenuItemsDelegate(string query); 
@@ -44,7 +43,6 @@ namespace Beijing_Inn_Order_System.Screens.OrderPageElements
         public PickItemsWindow(OrderDetails orderDetails, ObservableCollection<MenuCategory> menuCategories)
         {
             this.orderDetails = orderDetails;
-            this.menuCategories = menuCategories;
             menu = new FoodMenu(menuCategories);
             InitializeComponent();
             MainGrid.Children.Add(menu.Grid);
@@ -186,6 +184,7 @@ namespace Beijing_Inn_Order_System.Screens.OrderPageElements
             if (lb.SelectedItem == null) return;
             IItem item = Helper.DeepClone<IItem>((IItem)lb.SelectedItem);
             orderDetails.ItemBasket.Items.Add(item);
+            //orderDetails.ItemBasket.NotifyPropertyChanged("ConcatItems");
             SearchItemTextBox.Clear();
         }
 

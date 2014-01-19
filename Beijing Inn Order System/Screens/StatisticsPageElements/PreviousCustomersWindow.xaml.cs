@@ -6,7 +6,7 @@ using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Beijing_Inn_Order_System.Screens.ManagePageElements
+namespace Beijing_Inn_Order_System.Screens.StatisticsPageElements
 {
     /// <summary>
     /// Interaction logic for PreviousCustomersWindow.xaml

@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Beijing_Inn_Order_System.Screens.ManagePageElements
+namespace Beijing_Inn_Order_System.Screens.StatisticsPageElements
 {
     /// <summary>
     /// Interaction logic for OrderLogWindow.xaml
@@ -60,7 +60,7 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
 
         private void UserControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            ListViewSorter.SortDescending(DateGridViewColumn, CustomerListView);
+            //ListViewSorter.SortDescending(DateGridViewColumn, CustomerListView);
         }
     }
 }

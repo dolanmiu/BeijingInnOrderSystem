@@ -6,6 +6,11 @@ using System.Drawing;
 using Beijing_Inn_Order_System.Printing.TextDecoration;
 using Beijing_Inn_Order_System.Customer;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows.Threading;
+using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using Beijing_Inn_Order_System.Helper_Classes;
 
 namespace Beijing_Inn_Order_System.Printing
 {
@@ -86,7 +91,7 @@ namespace Beijing_Inn_Order_System.Printing
 
         private void LoadStatusCheckTicker()
         {
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(UpdatePrinterStatusTick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
             dispatcherTimer.Start();
@@ -118,8 +123,10 @@ namespace Beijing_Inn_Order_System.Printing
         public void AsyncLoadPrinter()
         {
             if (m_Printer == null) return;
-            AsyncLoadPrinterCaller caller = new AsyncLoadPrinterCaller(LoadPrinter);
-            IAsyncResult result = caller.BeginInvoke(null, null);
+            //AsyncLoadPrinterCaller caller = new AsyncLoadPrinterCaller(LoadPrinter);
+            //IAsyncResult result = caller.BeginInvoke(null, null);
+            Task loadPrinterTask = new Task(() => LoadPrinter());
+            loadPrinterTask.Start();
         }
 
         public void UnloadPrinter()
@@ -132,6 +139,7 @@ namespace Beijing_Inn_Order_System.Printing
             }
             catch (PosControlException)
             {
+                Debug.WriteLine("Printer cannot unload, perhaps its turned off? Or not connected?");
             }
         }
 
@@ -146,22 +154,27 @@ namespace Beijing_Inn_Order_System.Printing
             }
             catch (PosControlException)
             {
-
+                Debug.WriteLine("Failed to print! Check printer status.");
             }
+        }
+
+        private void PrintBeijingInnHeader()
+        {
+            m_Printer.PrintMemoryBitmap(PrinterStation.Receipt, logo, PosPrinter.PrinterBitmapAsIs, PosPrinter.PrinterBitmapCenter);
+            TextComponent addressLine = new TextCentreAlign(new TextBase("3 King Street, Gillingham, ME7 1EY"));
+            TextComponent phoneNumber = new TextCentreAlign(new TextBase("01634 570 633"));
+            PrintEnglish(addressLine.GetDec());
+            PrintEnglish(phoneNumber.GetDec());
+            PrintEnglish(" ");
         }
 
         private void PrintCustomerVersion(OrderDetails orderDetails)
         {
-            List<Tuple<IItem, int>> concattedItems = orderDetails.ItemBasket.ConcatItems;
+            ObservableCollection<Tuple<IItem, int>> concattedItems = orderDetails.ItemBasket.ConcatItems;
             try
             {
-                //m_Printer.PrintMemoryBitmap(PrinterStation.Receipt, logo, PosPrinter.PrinterBitmapAsIs, PosPrinter.PrinterBitmapCenter);
-                //TextComponent addressLine = new TextCentreAlign(new TextBase("3 King Street, Gillingham, ME7 1EY"));
-                //TextComponent phoneNumber = new TextCentreAlign(new TextBase("01634 570 633"));
-                //PrintEnglish(addressLine.GetDec());
-                //PrintEnglish(phoneNumber.GetDec());
-                //PrintEnglish(" ");
                 TextComponent forCustomer = new TextBold(new TextCentreAlign(new TextBase("FOR RECORDS - " + DateTime.UtcNow.Date.ToString("dd/MM/yyyy"))));
+                PrintEnglish(" ");
                 PrintEnglish(forCustomer.GetDec());
                 foreach (Tuple<IItem, int> item in concattedItems)
                 {
@@ -228,7 +241,7 @@ namespace Beijing_Inn_Order_System.Printing
 
         private void PrintKitchenVersion(OrderDetails orderDetails)
         {
-            List<Tuple<IItem, int>> concattedItems = orderDetails.ItemBasket.ConcatItems;
+            ObservableCollection<Tuple<IItem, int>> concattedItems = orderDetails.ItemBasket.ConcatItems;
             try
             {
                 TextComponent forKitchen = new TextBold(new TextCentreAlign(new TextBase("FOR KITCHEN")));
@@ -251,19 +264,28 @@ namespace Beijing_Inn_Order_System.Printing
                         chineseSizeModifier = "(" + p.ChineseSizeString + ")";
                     }
 
-                    TextComponent englishText = new TextBase(item.Item1.EnglishName);
+                    TextComponent englishText = new TextBase(EllipsisTruncate(item.Item1.EnglishName, 36));
                     TextComponent chineseText = new TextBase(item.Item1.ChineseName);
                     TextComponent specialText = new TextBold(new TextBase(item.Item1.ConcatProperties));
-                    TextComponent quantityText = new TextRightAlign(new TextBold(new TextBase("X" + item.Item2.ToString())));
+                    TextComponent quantityText = new TextDoubleWidthHeight(new TextBold(new TextBase(" X" + item.Item2.ToString())));
 
                     PrintEnglish(englishText.GetDec() + englishSizeModifier + quantityText.GetDec());
                     PrintChinese(item.Item1.ChineseName + chineseSizeModifier);
                     PrintEnglish(specialText.GetDec());
+                    /*if (string.IsNullOrEmpty(specialText.GetDec()))
+                    {
+                        PrintEnglish(" ");
+                    }*/
+                    PrintEnglish(" ");
                 }
 
                 if (orderDetails.CurrentAddress != null)
                 {
                     PrintEnglish("Deliver to: " + orderDetails.CurrentAddress.Concat);
+                }
+                else
+                {
+                    PrintEnglish("Pick Up Order");
                 }
 
                 PrintEnglish(" ");
@@ -276,6 +298,19 @@ namespace Beijing_Inn_Order_System.Printing
             {
                 Console.WriteLine("Cover open?");
             }
+        }
+
+
+        private string EllipsisTruncate(string value, int maxLength)
+        {
+            //return value.Length <= maxLength ? value : value.Substring(0, maxLength); 
+            string result = value;
+            if (value.Length >= maxLength)
+            {
+                result = value.Substring(0, maxLength);
+                //result += "...";
+            }
+            return result;
         }
 
         private void PrintEnglish(string str)

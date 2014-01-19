@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Beijing_Inn_Order_System
 {
@@ -55,9 +56,9 @@ namespace Beijing_Inn_Order_System
 
         private void SetUpWrapPanels()
         {
-            List<SpecialButton.SpecialType> sorted = (from e in Enum.GetValues(typeof(SpecialButton.SpecialType)).Cast<SpecialButton.SpecialType>()
-                          orderby e.ToString()
-                          select e).ToList();
+            //List<SpecialButton.SpecialType> sorted = (from e in Enum.GetValues(typeof(SpecialButton.SpecialType)).Cast<SpecialButton.SpecialType>() 
+                                                      //orderby e.ToString() select e).ToList();
+            List<SpecialButton.SpecialType> sorted = Enum.GetValues(typeof(SpecialButton.SpecialType)).Cast<SpecialButton.SpecialType>().OrderBy(e => SelectSortingString(e.ToString())).Select(e => e).ToList();
 
             foreach (SpecialButton.SpecialType type in sorted)
             {
@@ -67,6 +68,19 @@ namespace Beijing_Inn_Order_System
                 SpecialSource.Children.Add(sb);
             }
             //buttons.Add(new SpecialButton("Extra Hot", this, SpecialButton.SpecialType.ExtraHot));
+        }
+
+        private string SelectSortingString(string reqString)
+        {
+            string[] results = Regex.Split(reqString.ToString(), "(\\B[A-Z])");
+            if (results.Length > 1)
+            {
+                return results[1];
+            }
+            else
+            {
+                return results[0];
+            }
         }
 
         #region Depreciated

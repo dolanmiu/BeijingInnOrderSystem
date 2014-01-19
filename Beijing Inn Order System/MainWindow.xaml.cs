@@ -1,8 +1,7 @@
 ﻿using Beijing_Inn_Order_System.Printing;
 using System.Windows;
 using Beijing_Inn_Order_System.Settings;
-using Beijing_Inn_Order_System.Items;
-using Beijing_Inn_Order_System.Customer;
+using Beijing_Inn_Order_System.Screens;
 using Beijing_Inn_Order_System.MenuDesigner;
 
 namespace Beijing_Inn_Order_System
@@ -14,41 +13,43 @@ namespace Beijing_Inn_Order_System
     {
         private OrderPage orderPage;
         private ManagePage managePage;
+        private StatisticsPage statsPage;
         private ReceiptPrinter printer;
-        private MenuXMLReaderWriter menuReaderWriter;
 
         public MainWindow()
         {
-            UserSettings.ReadSettingsFile();
-            menuReaderWriter = new MenuXMLReaderWriter();
-            menuReaderWriter.ReadMenuFile();
             printer = new ReceiptPrinter();
-            orderPage = new OrderPage(printer, menuReaderWriter.MenuCategories);
-            managePage = new ManagePage(printer, menuReaderWriter);
+            orderPage = new OrderPage(printer);
+            managePage = new ManagePage(printer);
+            statsPage = new StatisticsPage();
         }
 
         void OnLoad(object sender, RoutedEventArgs e)
         {
-            ItemManager.LoadTotalOrders();
             this.Content = orderPage;
-            printer.LoadPrinter();
+            printer.LoadPrinter(); //Comment this out to make things work
         }
 
         private void ManageButton_Click(object sender, RoutedEventArgs e)
         {
-            managePage = new ManagePage(printer, menuReaderWriter);
+            managePage = new ManagePage(printer);
             this.Content = managePage;
         }
 
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
-            orderPage = new OrderPage(printer, menuReaderWriter.MenuCategories);
+            orderPage = new OrderPage(printer);
             this.Content = orderPage;
         }
 
         private void MainScreen_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             printer.UnloadPrinter();
+        }
+
+        private void StatsButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = statsPage;
         }
 
         #region Properties

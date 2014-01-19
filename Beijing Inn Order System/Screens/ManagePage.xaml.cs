@@ -19,7 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Beijing_Inn_Order_System
+namespace Beijing_Inn_Order_System.Screens
 {
     /// <summary>
     /// Interaction logic for ManagePage.xaml
@@ -28,11 +28,10 @@ namespace Beijing_Inn_Order_System
     {
         private ReceiptPrinter printer;
 
-        public ManagePage(ReceiptPrinter printer, MenuXMLReaderWriter menuReaderWriter)
+        public ManagePage(ReceiptPrinter printer)
         {
             this.printer = printer;
             InitializeComponent();
-            MenuDesignerTab.Content = new MenuDesignerWindow(menuReaderWriter);
         }
 
         private void OnLoad(object sender, RoutedEventArgs e)

@@ -102,7 +102,7 @@ namespace Beijing_Inn_Order_System.Customer
             {
                 if (currentAddress == null)
                 {
-                    return "Road Name";
+                    return "Pick Up Order";
                 }
                 else
                 {
@@ -117,7 +117,7 @@ namespace Beijing_Inn_Order_System.Customer
             {
                 if (currentAddress == null)
                 {
-                    return "Town Name";
+                    return "";
                 }
                 else
                 {
@@ -132,7 +132,7 @@ namespace Beijing_Inn_Order_System.Customer
             {
                 if (currentAddress == null)
                 {
-                    return "Post Code";
+                    return "";
                 }
                 else
                 {

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Beijing_Inn_Order_System.ManagePage"
+﻿<UserControl x:Class="Beijing_Inn_Order_System.Screens.ManagePage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,19 +10,11 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <TabControl>
-            <TabItem Header="ITEM SALES">
-                <controls:ItemSalesWindow />
-            </TabItem>
-            <TabItem Header="CUSTOMERS">
-                <controls:PreviousCustomersWindow />
-            </TabItem>
-            <TabItem Header="ORDER LOG">
-                <controls:OrderLogWindow />
+            <TabItem Header="MENU DESIGNER">
+                <controls:MenuDesignerWindow />
             </TabItem>
             <TabItem Header="SETTINGS">
                 <controls:SettingsWindow />
-            </TabItem>
-            <TabItem Header="MENU DESIGNER" x:Name="MenuDesignerTab">
             </TabItem>
         </TabControl>
     </Grid>

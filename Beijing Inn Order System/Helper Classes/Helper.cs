@@ -29,5 +29,16 @@ namespace Beijing_Inn_Order_System.Helper_Classes
             string fileLocation = fileDir + "\\" + filename;
             return fileLocation;
         }
+
+        public static string EllipsisTruncate(this string value, int maxLength)
+        {
+            //return value.Length <= maxLength ? value : value.Substring(0, maxLength); 
+            if (value.Length <= maxLength && maxLength > 3) 
+            {
+                value.Substring(0, maxLength - 3);
+                value += "...";
+            }
+            return value;
+        }
     }
 }

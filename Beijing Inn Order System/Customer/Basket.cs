@@ -1,14 +1,24 @@
 ﻿using Beijing_Inn_Order_System.Items;
-using Beijing_Inn_Order_System.Settings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Beijing_Inn_Order_System.Customer
 {
-    public class Basket
+    public class Basket : INotifyPropertyChanged
     {
         private ObservableCollection<IItem> items = new ObservableCollection<IItem>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
 
         public Basket()
         {
@@ -48,11 +58,11 @@ namespace Beijing_Inn_Order_System.Customer
             }
         }
 
-        public List<Tuple<IItem, int>> ConcatItems
+        public ObservableCollection<Tuple<IItem, int>> ConcatItems
         {
             get
             {
-                List<Tuple<IItem, int>> result = new List<Tuple<IItem, int>>();
+                ObservableCollection<Tuple<IItem, int>> result = new ObservableCollection<Tuple<IItem, int>>();
                 List<IItem> tempItemCache = new List<IItem>();
                 foreach (IItem item in items)
                 {

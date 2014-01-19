@@ -33,6 +33,11 @@ namespace Beijing_Inn_Order_System.Helper_Classes
                     adornerLayer.Remove(_CurAdornerItem);
                     listView.Items.SortDescriptions.Clear();
                 }
+
+                _CurSortColItem = column;
+                _CurAdornerItem = new SortAdorner(_CurSortColItem, newDir);
+                AdornerLayer.GetAdornerLayer(_CurSortColItem).Add(_CurAdornerItem);
+                listView.Items.SortDescriptions.Add(new SortDescription(field, newDir));
             }
 
             //ListSortDirection newDir = ListSortDirection.Descending;
@@ -40,12 +45,6 @@ namespace Beijing_Inn_Order_System.Helper_Classes
             //{
             //    newDir = ListSortDirection.Ascending;
             //}
-
-
-            _CurSortColItem = column;
-            _CurAdornerItem = new SortAdorner(_CurSortColItem, newDir);
-            AdornerLayer.GetAdornerLayer(_CurSortColItem).Add(_CurAdornerItem);
-            listView.Items.SortDescriptions.Add(new SortDescription(field, newDir));
         }
 
         public static void SortAlternate(object sender, ListView listView)

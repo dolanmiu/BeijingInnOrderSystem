@@ -15,7 +15,8 @@
         <Controls:ApplicationBar x:Name="AppBar" Height="80">
             <!-- Right Click on the UI to open Application Bar -->
             <Controls:DropDownCommandButton x:Name="OrderButton" Header="ORDER" Width="100" Height="70" Click="OrderButton_Click"/>
-            <Controls:DropDownCommandButton x:Name="ManageButton" Header="STATS" Width="100" Height="70" Click="ManageButton_Click"/>
+            <Controls:DropDownCommandButton x:Name="ManageButton" Header="MANAGE" Width="100" Height="70" Click="ManageButton_Click"/>
+            <Controls:DropDownCommandButton x:Name="StatsButton" Header="STATS" Width="100" Height="70" Click="StatsButton_Click"/>
         </Controls:ApplicationBar>
     </Controls:Window.ApplicationBar>
     <Grid>

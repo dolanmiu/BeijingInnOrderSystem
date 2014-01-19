@@ -10,26 +10,15 @@ using System.Xml.Linq;
 
 namespace Beijing_Inn_Order_System.MenuDesigner
 {
-    public class MenuXMLReaderWriter : INotifyPropertyChanged
+    public static class MenuManager
     {
-        private ObservableCollection<MenuCategory> menuCategories;
+        private static ObservableCollection<MenuCategory> menuCategories = new ObservableCollection<MenuCategory>();
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(String info)
+        static MenuManager()
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
         }
 
-        public MenuXMLReaderWriter()
-        {
-            menuCategories = new ObservableCollection<MenuCategory>();
-        }
-
-        public void WriteMenuFile()
+        public static void WriteMenuFile()
         {
             XDocument doc = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
@@ -45,7 +34,7 @@ namespace Beijing_Inn_Order_System.MenuDesigner
             doc.Save(fileLocation);
         }
 
-        public void ReadMenuFile()
+        public static void ReadMenuFile()
         {
             string fileLocation = Helper.GetAppDataFile("menu.xml");
 
@@ -54,9 +43,11 @@ namespace Beijing_Inn_Order_System.MenuDesigner
             {
                 xDoc = XDocument.Load(fileLocation);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                WriteMenuFile();
+                Debug.Write(e);
+                return;
+                //WriteMenuFile();
             }
 
             IEnumerable<XElement> menus = from row in xDoc.Descendants("Menu") select row;
@@ -83,12 +74,11 @@ namespace Beijing_Inn_Order_System.MenuDesigner
                             menuCategory.AddItemID(itemNum);
                         }
                     }
-                    NotifyPropertyChanged("MenuCategories");
                 }
             }
         }
 
-        public int MoveCategoryUp(MenuCategory menuCat)
+        public static int MoveCategoryUp(MenuCategory menuCat)
         {
             int catIndex = menuCategories.IndexOf(menuCat);
             if (catIndex <= 0) return -1;
@@ -97,7 +87,7 @@ namespace Beijing_Inn_Order_System.MenuDesigner
             return catIndex - 1;
         }
 
-        public int MoveCategoryDown(MenuCategory menuCat)
+        public static int MoveCategoryDown(MenuCategory menuCat)
         {
             int catIndex = menuCategories.IndexOf(menuCat);
             if (catIndex >= menuCategories.Count - 1) return -1;
@@ -107,7 +97,7 @@ namespace Beijing_Inn_Order_System.MenuDesigner
         }
 
         #region Properties
-        public ObservableCollection<MenuCategory> MenuCategories
+        public static ObservableCollection<MenuCategory> MenuCategories
         {
             get
             {

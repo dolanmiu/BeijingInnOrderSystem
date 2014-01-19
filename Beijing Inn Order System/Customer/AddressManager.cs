@@ -17,7 +17,6 @@ namespace Beijing_Inn_Order_System.Customer
     {
         private static List<Address> totalAddresses = new List<Address>();
         private static List<string> totalPostCodes = new List<string>();
-        private static DataTable orderLog;
         private static List<string> towns = new List<string>(new string[] { "Gillingham", "Chatham", "Rochester", "Lordswood", "Walderslade" });
         private static Dictionary<string, Address> postcodeDictionary;
 

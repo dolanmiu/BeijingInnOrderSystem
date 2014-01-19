@@ -15,7 +15,6 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
     /// </summary>
     public partial class MenuDesignerWindow : UserControl, INotifyPropertyChanged
     {
-        private MenuXMLReaderWriter menuReaderWriter;
         private MenuCategory currentCategory;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -28,9 +27,8 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
             }
         }
 
-        public MenuDesignerWindow(MenuXMLReaderWriter menuReaderWriter)
+        public MenuDesignerWindow()
         {
-            this.menuReaderWriter = menuReaderWriter;
             InitializeComponent();
         }
 
@@ -62,7 +60,7 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            menuReaderWriter.WriteMenuFile();
+            MenuManager.WriteMenuFile();
         }
 
         private void AddCategoryButton_Click(object sender, RoutedEventArgs e)
@@ -71,7 +69,7 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
             NewMenuCategoryWindow window = new NewMenuCategoryWindow(menuCategory);
             window.ShowDialog();
             if (string.IsNullOrEmpty(menuCategory.EnglishName)) return;
-            menuReaderWriter.MenuCategories.Add(menuCategory);
+            MenuManager.MenuCategories.Add(menuCategory);
             currentCategory = menuCategory;
             NotifyPropertyChanged("CategoryItems");
         }
@@ -81,7 +79,7 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
             MenuCategory category = (MenuCategory)MenuSectionsListBox.SelectedItem;
             if (category != null)
             {
-                MenuCategories.Remove(category);
+                MenuManager.MenuCategories.Remove(category);
             }
             currentCategory = null;
             NotifyPropertyChanged("CategoryItems");
@@ -105,16 +103,16 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
 
             if (removedIdx < targetIdx)
             {
-                menuReaderWriter.MenuCategories.Insert(targetIdx + 1, droppedData);
-                menuReaderWriter.MenuCategories.RemoveAt(removedIdx);
+                MenuManager.MenuCategories.Insert(targetIdx + 1, droppedData);
+                MenuManager.MenuCategories.RemoveAt(removedIdx);
             }
             else
             {
                 int remIdx = removedIdx + 1;
-                if (menuReaderWriter.MenuCategories.Count + 1 > remIdx)
+                if (MenuManager.MenuCategories.Count + 1 > remIdx)
                 {
-                    menuReaderWriter.MenuCategories.Insert(targetIdx, droppedData);
-                    menuReaderWriter.MenuCategories.RemoveAt(remIdx);
+                    MenuManager.MenuCategories.Insert(targetIdx, droppedData);
+                    MenuManager.MenuCategories.RemoveAt(remIdx);
                 }
             }
         }
@@ -156,7 +154,7 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
         {
             get
             {
-                return menuReaderWriter.MenuCategories;
+                return MenuManager.MenuCategories;
             }
         }
 
@@ -172,7 +170,7 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
         private void MoveCategoryUpButton_Click(object sender, RoutedEventArgs e)
         {
             if (MenuSectionsListBox.SelectedItem == null) return;
-            int selectedValue = menuReaderWriter.MoveCategoryUp((MenuCategory)MenuSectionsListBox.SelectedItem);
+            int selectedValue = MenuManager.MoveCategoryUp((MenuCategory)MenuSectionsListBox.SelectedItem);
             if (selectedValue == -1) return;
             MenuSectionsListBox.SelectedIndex = selectedValue;
         }
@@ -180,7 +178,7 @@ namespace Beijing_Inn_Order_System.Screens.ManagePageElements
         private void MoveCategoryDownButton_Click(object sender, RoutedEventArgs e)
         {
             if (MenuSectionsListBox.SelectedItem == null) return;
-            int selectedValue = menuReaderWriter.MoveCategoryDown((MenuCategory)MenuSectionsListBox.SelectedItem);
+            int selectedValue = MenuManager.MoveCategoryDown((MenuCategory)MenuSectionsListBox.SelectedItem);
             if (selectedValue == -1) return;
             MenuSectionsListBox.SelectedIndex = selectedValue;
         }

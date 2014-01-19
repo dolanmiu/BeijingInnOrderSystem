@@ -32,6 +32,7 @@ namespace Beijing_Inn_Order_System.MenuDesigner
 
         public void AddItemID(int id)
         {
+            if (id > ItemManager.TotalItems.Count) return;
             items.Add(ItemManager.TotalItems[id]);
         }
 

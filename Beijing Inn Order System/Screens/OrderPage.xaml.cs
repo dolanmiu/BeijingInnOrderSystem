@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Beijing_Inn_Order_System
+namespace Beijing_Inn_Order_System.Screens
 {
     /// <summary>
     /// Interaction logic for OrderPage.xaml
@@ -15,19 +15,18 @@ namespace Beijing_Inn_Order_System
     public partial class OrderPage : UserControl
     {
         //ListBox dragSource = null;
-        OrderDetails orderDetails;
+        private OrderDetails orderDetails;
+        private PickItemsWindow pickItemsWindow;
+        private DeliveryWindow deliveryWindow;
+        private PrintWindow printWindow;
+        private ReceiptPrinter printer;
 
-        PickItemsWindow pickItemsWindow { get; set; }
-        DeliveryWindow deliveryWindow;
-        PrintWindow printWindow;
-        ReceiptPrinter printer;
-
-        public OrderPage(ReceiptPrinter printer, ObservableCollection<MenuCategory> menuCategories)
+        public OrderPage(ReceiptPrinter printer)
         {
             this.printer = printer;
             orderDetails = new OrderDetails();
             InitializeComponent();
-            pickItemsWindow = new PickItemsWindow(orderDetails, menuCategories);
+            pickItemsWindow = new PickItemsWindow(orderDetails, MenuManager.MenuCategories);
             PickItemsTab.Content = pickItemsWindow;
             deliveryWindow = new DeliveryWindow(orderDetails);
             DeliveryTab.Content = deliveryWindow;

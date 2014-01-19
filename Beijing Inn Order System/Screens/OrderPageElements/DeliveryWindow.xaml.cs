@@ -97,9 +97,23 @@ namespace Beijing_Inn_Order_System.Screens.OrderPageElements
 
                 if (currentAddresses.Count == 1)
                 {
-                    orderDetails.CurrentAddress = currentAddresses[0];
+                    orderDetails.CurrentAddress = Helper.DeepClone<Address>(currentAddresses[0]);
                 }
                 }));
+        }
+
+        private void UserControl_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (orderDetails.CurrentAddress == null) return;
+            if (!string.IsNullOrEmpty(HouseNumberTextBox.ContentText))
+            {
+                orderDetails.HouseNumber = HouseNumberTextBox.ContentText;
+            }
+
+            if (!string.IsNullOrEmpty(PhoneNumberTextBox.ContentText))
+            {
+                orderDetails.PhoneNumber = PhoneNumberTextBox.ContentText;
+            }
         }
 
         #region Properties

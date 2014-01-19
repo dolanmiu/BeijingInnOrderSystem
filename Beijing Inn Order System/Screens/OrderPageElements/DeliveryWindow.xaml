@@ -7,7 +7,7 @@
              xmlns:CustomControls="clr-namespace:Beijing_Inn_Order_System.CustomControls"
              xmlns:WpfKb="clr-namespace:WpfKb.Controls;assembly=WpfKb"
              d:DesignHeight="768" d:DesignWidth="1024"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
+             DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded" LostFocus="UserControl_LostFocus">
     <Grid>
         <TextBlock x:Name="RoadTextBlock" Margin="0,62,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48"  Text="{Binding OrderDetails.RoadText}" TextAlignment="Right" HorizontalAlignment="Right" Width="1004"/>
         <TextBlock x:Name="TownTextBlock" Margin="0,127,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36" Text="{Binding OrderDetails.TownText}" TextAlignment="Right" HorizontalAlignment="Right" Width="1004"/>
